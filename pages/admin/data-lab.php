@@ -1,4 +1,6 @@
 <?php
+include "../../config/koneksi.php";
+include "../../functions/query.php";
 include "validasi.php";
 ?>
 <!DOCTYPE html>
@@ -60,10 +62,10 @@ include "validasi.php";
                                         </thead>
                                          <?php
                                             $no=0;
-                                            include "../../config/koneksi.php";
-                                            $query = "
-                                            SELECT * FROM tabel_laboratorium LEFT JOIN tabel_admin ON tabel_laboratorium.id_user = tabel_admin.id_user";
-                                            $hasil = mysqli_query($db, $query);
+//                                            $query = "
+//                                            SELECT * FROM tabel_laboratorium LEFT JOIN tabel_admin ON tabel_laboratorium.id_user = tabel_admin.id_user";
+//                                            $hasil = mysqli_query($db, $query);
+                                            $hasil = daftar_lab();
                                             $data_lab = array();
                                             while ($row = mysqli_fetch_assoc($hasil)) {
                                             $data_lab[] = $row;
@@ -72,7 +74,7 @@ include "validasi.php";
                                         <tbody>
                                             <?php foreach ($data_lab as $data) :  ?>
                                             <tr>
-                                                <td><?php $no++; echo "$no" ?></td>
+                                                <td><?php $no++; echo $no ?></td>
                                                 <td><?php echo $data['kd_lab']; ?></td>
                                                 <td><?php echo $data['id_user']; ?></td>
                                                 <td><?php echo $data['nama']; ?></td>

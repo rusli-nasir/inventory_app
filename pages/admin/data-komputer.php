@@ -1,5 +1,6 @@
 <?php
     include "../../config/koneksi.php";
+    include '../../functions/query.php';
     include "validasi.php";
     $kd_lab = $_GET['kd_lab'];
 
@@ -43,8 +44,9 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <?php
-                                        $query = "SELECT * from tabel_laboratorium where kd_lab ='$kd_lab'";
-                                        $hasil = mysqli_query($db, $query);
+//                                        $query = "SELECT * from tabel_laboratorium where kd_lab ='$kd_lab'";
+////                                        $hasil = mysqli_query($db, $query);
+                                        $hasil = daftar_lab($kd_lab);
                                         $data_lab = array();
                                         while ($row = mysqli_fetch_assoc($hasil)) {
                                         $data_lab[] = $row;
@@ -82,8 +84,8 @@
                                         </thead>
                                          <?php
                                             $no=0;
-                                            $query = "SELECT * FROM tabel_inventori_komputer where kd_lab ='$kd_lab'";
-                                            $hasil = mysqli_query($db, $query);
+//                                            $query = "SELECT * FROM tabel_inventori_komputer where kd_lab ='$kd_lab'";
+                                            $hasil = daftar_inv_komputer($kd_lab);
                                             $data_inv = array();
                                             while ($row = mysqli_fetch_assoc($hasil)) {
                                             $data_inv[] = $row;
@@ -92,7 +94,7 @@
                                         <tbody>
                                             <?php foreach ($data_inv as $data) :  ?>
                                             <tr>
-                                                <td><?php $no++; echo "$no" ?></td>
+                                                <td><?php $no++; echo $no ?></td>
                                                 <td><?php echo $data['kd_komputer']; ?></td>
                                                 <td><?php echo $data['kd_lab']; ?></td>
                                                 <td><?php echo $data['id_user']; ?></td>
