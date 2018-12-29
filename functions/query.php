@@ -55,6 +55,19 @@ if (!function_exists('daftar_inv_komputer')) {
 }
 
 /**
+ * Daftar Inventory Non Komputer
+ * function daftar_inv_non_komputer($kode_lab)
+ *
+ **/
+if (!function_exists('daftar_inv_non_komputer')) {
+    function daftar_inv_non_komputer($kode_lab)
+    {
+        $query = "SELECT * FROM tabel_inventori_non_komputer where kd_lab ='{$kode_lab}'";
+        return query($query);
+    }
+}
+
+/**
  * Auto Number
  * function auto_number($prefix,$table,$key,$digit = 3)
  *

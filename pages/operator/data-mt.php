@@ -1,5 +1,6 @@
 <?php
  include "validasi.php";
+    include "../../config/koneksi.php";
   $id = $_SESSION['id_user'];
 ?>
 <!DOCTYPE html>
@@ -64,9 +65,8 @@
                                         </thead>
                                          <?php
                                             $no=0;
-                                            include "../../config/koneksi.php";
-                                            $query = "
-                                            SELECT * FROM tabel_maintenance where id_user ='$id'";
+//                                            $query = "SELECT * FROM tabel_maintenance where id_user ='$id'";
+                                            $query = "SELECT * FROM tabel_maintenance";
                                             $hasil = mysqli_query($db, $query);
                                             $data_mt = array();
                                             while ($row = mysqli_fetch_assoc($hasil)) {
@@ -85,11 +85,17 @@
                                                 <td><?php echo $data['maintenance_selanjutnya']; ?></td>
                                                 <td><?php echo $data['status']; ?></td>
                                                 <td>
-                                                <center>
-                                                <a href="ubah-maintenance.php?kd_maintenance=<?php echo $data['kd_maintenance'] ?>" class="btn btn-primary waves-effect" >
-                                                <i class="fa fa-edit"></i>
-                                                </a>
-                                                </center>
+                                                    <?php
+                                                    if($data['id_user'] == $id){
+                                                        ?>
+                                                        <center>
+                                                            <a href="ubah-maintenance.php?kd_maintenance=<?php echo $data['kd_maintenance'] ?>" class="btn btn-primary waves-effect" >
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        </center>
+                                                        <?php
+                                                    }
+                                                    ?>
                                                 </td>   
                                            </tr>
                                        <?php endforeach ?>

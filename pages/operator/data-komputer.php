@@ -1,5 +1,6 @@
 <?php
     include "../../config/koneksi.php";
+    include '../../functions/query.php';
     include "validasi.php";
     $kd_lab = $_GET['kd_lab'];
     $id = $_SESSION['id_user'];
@@ -45,8 +46,9 @@
 
                                     <div class="card-header">
                                         <?php
-                                        $query = "SELECT * from tabel_laboratorium where kd_lab ='$kd_lab'";
-                                        $hasil = mysqli_query($db, $query);
+//                                        $query = "SELECT * from tabel_laboratorium where kd_lab ='$kd_lab'";
+//                                        $hasil = mysqli_query($db, $query);
+                                        $hasil = daftar_lab($kd_lab);
                                         $data_lab = array();
                                         while ($row = mysqli_fetch_assoc($hasil)) {
                                         $data_lab[] = $row;
@@ -83,8 +85,9 @@
                                         </thead>
                                          <?php
                                             $no=0;
-                                            $query = "SELECT * FROM tabel_inventori_komputer where kd_lab ='$kd_lab' and id_user='$id'";
-                                            $hasil = mysqli_query($db, $query);
+//                                            $query = "SELECT * FROM tabel_inventori_komputer where kd_lab ='$kd_lab' and id_user='$id'";
+//                                            $hasil = mysqli_query($db, $query);
+                                            $hasil = daftar_inv_komputer($kd_lab);
                                             $data_inv = array();
                                             while ($row = mysqli_fetch_assoc($hasil)) {
                                             $data_inv[] = $row;
@@ -110,11 +113,18 @@
                                                 <td><?php echo $data['keterangan_komputer']; ?></td>
                                                 <td><?php echo $data['status']; ?></td>
                                                 <td>
-                                                <center>
-                                                <a href="ubah-komputer.php?kd_komputer=<?php echo $data['kd_komputer'] ?>" class="btn btn-primary waves-effect" >
-                                                <i class="fa fa-edit"></i>
-                                                </a>
-                                                </center>
+                                                    <?php
+                                                    if($data['id_user'] == $id){
+                                                        ?>
+                                                        <center>
+                                                            <a href="ubah-komputer.php?kd_komputer=<?php echo $data['kd_komputer'] ?>" class="btn btn-primary waves-effect" >
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        </center>
+                                                        <?php
+                                                    }
+                                                    ?>
+
                                                 </td>   
                                            </tr>
                                        <?php endforeach ?>
