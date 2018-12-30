@@ -97,20 +97,14 @@ include "../partial/head.html";
                                                     $data_lab[] = $row;
                                                 }
                                                 ?>
-                                                <select name="kd_lab" class="form-control-sm form-control" disabled>
+                                                <select name="kd_lab" class="form-control-sm form-control" readonly="readonly">
                                                     <option value="0">Please select</option>
                                                     <?php foreach ($data_lab as $data) : ?>
                                                         <option value="<?php echo $data['kd_lab'] ?>" <?= ($kd_lab == $data['kd_lab'])?'selected':null ?> >
                                                             <?php echo $data['kd_lab'] ?> | <?php echo $data['nama_lab'] ?> </option>
                                                     <?php endforeach ?>
                                                 </select>
-                                                <?php
-                                                if($kd_lab == $data['kd_lab']){
-                                                    ?>
-                                                    <input type="hidden" name="kd_lab" value="<?= $kd_lab?>">
-                                                    <?php
-                                                }
-                                                ?>
+
                                             </div>
                                             <div class="col col-md-2">
                                                 <label for="text-input" class=" form-control-label">Memory</label>

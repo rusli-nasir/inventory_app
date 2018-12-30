@@ -24,6 +24,7 @@ $hasil = mysqli_query($db, $query);
 if($hasil){ 
     echo "<script>window.alert('Tambah Inventori Berhasil'); window.location.href='index.php'</script>"; 
   }else{
+   print_r(mysqli_error($db));
    echo "<script>window.alert('Tambah Inventori Gagal'); window.location.href='insert_komputer.php'</script>";
   }
 

@@ -3,6 +3,7 @@ include "../../config/koneksi.php";
 include "../../functions/query.php";
 include "validasi.php";
 $id = $_SESSION['id_user'];
+$kd_lab = $_GET['kd_lab']?:'KOMLAB';
 // mencari kode user dengan nilai paling besar
 //$query = "SELECT max(kd_inventori) as maxKode FROM tabel_inventori_non_komputer";
 //$hasil = mysqli_query($db,$query);
@@ -89,20 +90,14 @@ include "../partial/head.html";
                                             }
                                             ?>
                                             <div class="col-12 col-md-9">
-                                                <select name="kd_lab" class="form-control-sm form-control" disabled>
+                                                <select name="kd_lab" class="form-control-sm form-control" readonly="readonly">
                                                     <option value="0">Please select</option>
                                                     <?php foreach ($data_lab as $data) : ?>
                                                         <option value="<?php echo $data['kd_lab'] ?>" <?= ($kd_lab == $data['kd_lab'])?'selected':null ?> >
                                                             <?php echo $data['kd_lab'] ?> | <?php echo $data['nama_lab'] ?> </option>
                                                     <?php endforeach ?>
                                                 </select>
-                                                <?php
-                                                if($kd_lab == $data['kd_lab']){
-                                                    ?>
-                                                    <input type="hidden" name="kd_lab" value="<?= $kd_lab?>">
-                                                    <?php
-                                                }
-                                                ?>
+
                                             </div>
                                         </div>
 
