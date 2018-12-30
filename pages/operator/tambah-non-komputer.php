@@ -3,7 +3,7 @@ include "../../config/koneksi.php";
 include "../../functions/query.php";
 include "validasi.php";
 $id = $_SESSION['id_user'];
-$kd_lab = $_GET['kd_lab']?:'KOMLAB';
+$kd_lab = $_GET['kd_lab']?$_GET['kd_lab'] . '/NKOM':'NKOM';
 // mencari kode user dengan nilai paling besar
 //$query = "SELECT max(kd_inventori) as maxKode FROM tabel_inventori_non_komputer";
 //$hasil = mysqli_query($db,$query);

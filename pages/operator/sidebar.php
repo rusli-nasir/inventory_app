@@ -76,10 +76,16 @@ include "../../config/koneksi.php";
                         <i class="fas fa-gears"></i>Data Maintenance</a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
                         <li>
-                            <a href="tambah-mt.php">Tambah</a>
+                            <a href="tambah-mt.php">Tambah Inventori Komputer</a>
                         </li>
                         <li>
-                            <a href="data-mt.php">Data Maintenance</a>
+                            <a href="tambah-mt-nonkomputer.php">Tambah Inventori Non Komputer</a>
+                        </li>
+                        <li>
+                            <a href="data-mt.php">Daftar Maintenance Komputer</a>
+                        </li>
+                        <li>
+                            <a href="data-mt-nonkomputer.php">Daftar Maintenance Non Komputer</a>
                         </li>
                     </ul>
                 </li>

@@ -14,7 +14,7 @@ $query = "INSERT INTO tabel_inventori_non_komputer VALUES ('$kd_inventori','$kd_
 
 $hasil = mysqli_query($db, $query);
 if($hasil){ 
-    echo "<script>window.alert('Tambah Inventori Berhasil'); window.location.href='index.php'</script>"; 
+    echo "<script>window.alert('Tambah Inventori Berhasil'); window.location.href='data-non-komputer.php?kd_lab={$kd_lab}'</script>";
   }else{
    echo "<script>window.alert('Tambah Inventori Gagal'); window.location.href='tambah-non-komputer.php'</script>";
   }

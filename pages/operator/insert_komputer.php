@@ -22,7 +22,7 @@ $query = "INSERT INTO tabel_inventori_komputer VALUES ('$kd_komputer','$kd_lab',
 
 $hasil = mysqli_query($db, $query);
 if($hasil){ 
-    echo "<script>window.alert('Tambah Inventori Berhasil'); window.location.href='index.php'</script>"; 
+    echo "<script>window.alert('Tambah Inventori Berhasil'); window.location.href='data-komputer.php?kd_lab={$kd_lab}'</script>";
   }else{
    echo "<script>window.alert('Tambah Inventori Gagal'); window.location.href='insert_komputer.php'</script>";
   }

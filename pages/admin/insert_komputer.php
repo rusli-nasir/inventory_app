@@ -21,10 +21,9 @@ $status = $_POST['status'];
 $query = "INSERT INTO tabel_inventori_komputer VALUES ('$kd_komputer','$kd_lab','$id_user','$nama_komputer','$tahun','$os_komputer','$monitor','$keyboard','$mouse','$memory','$hdd','$processor','$ups','$komponen_lain','$keterangan','$status');";
 
 $hasil = mysqli_query($db, $query);
-if($hasil){ 
-    echo "<script>window.alert('Tambah Inventori Berhasil'); window.location.href='index.php'</script>"; 
+if($hasil){
+    echo "<script>window.alert('Tambah Inventori Berhasil'); window.location.href='data-komputer.php?kd_lab={$kd_lab}'</script>";
   }else{
-   print_r(mysqli_error($db));
    echo "<script>window.alert('Tambah Inventori Gagal'); window.location.href='insert_komputer.php'</script>";
   }
 

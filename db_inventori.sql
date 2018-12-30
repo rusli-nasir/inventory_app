@@ -11,7 +11,7 @@
  Target Server Version : 50611
  File Encoding         : 65001
 
- Date: 29/12/2018 18:35:57
+ Date: 30/12/2018 18:45:24
 */
 
 SET NAMES utf8mb4;
@@ -48,7 +48,7 @@ INSERT INTO `tabel_admin` VALUES ('PGW18006', 'Eka Krisna', 'Ekakrisn', 'm2mriiK
 -- ----------------------------
 DROP TABLE IF EXISTS `tabel_inventori_komputer`;
 CREATE TABLE `tabel_inventori_komputer`  (
-  `kd_komputer` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_komputer` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `kd_lab` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `id_user` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `nama_komputer` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
@@ -82,13 +82,14 @@ INSERT INTO `tabel_inventori_komputer` VALUES ('KOMLAB005', 'LABKOM001', 'PGW180
 INSERT INTO `tabel_inventori_komputer` VALUES ('KOMLAB006', 'LABKOM002', 'PGW18002', 'PC 2', '2018', 'Win 10', 'baik', 'baik', 'baik', 'baik', 'baik', 'baik', 'baik', '-', 'Lengkap', 'Dapat Dipakai');
 INSERT INTO `tabel_inventori_komputer` VALUES ('KOMLAB007', 'LABKOM001', 'PGW18002', 'PC 5', '2018', 'Windows 10', 'buruk', 'baik', 'baik', 'baik', 'baik', 'baik', 'baik', '-', 'Lengkap', 'Dapat Dipakai');
 INSERT INTO `tabel_inventori_komputer` VALUES ('KOMLAB008', 'LABKOM001', 'PGW18002', 'PC 6', '2018', 'Windows 10', 'baik', 'baik', 'baik', 'baik', 'baik', 'baik', 'baik', '-', 'Lengkap', 'Dapat Dipakai');
+INSERT INTO `tabel_inventori_komputer` VALUES ('LABKOM001001', 'LABKOM001', 'PGW18002', 'sds', '123', 'sdas', 'baik', 'baik', 'baik', 'baik', 'baik', 'baik', 'baik', 'da', 'asd', 'Dapat Dipakai');
 
 -- ----------------------------
 -- Table structure for tabel_inventori_non_komputer
 -- ----------------------------
 DROP TABLE IF EXISTS `tabel_inventori_non_komputer`;
 CREATE TABLE `tabel_inventori_non_komputer`  (
-  `kd_inventori` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_inventori` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `kd_lab` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `id_user` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `nama_inventori` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
@@ -106,6 +107,7 @@ CREATE TABLE `tabel_inventori_non_komputer`  (
 -- ----------------------------
 -- Records of tabel_inventori_non_komputer
 -- ----------------------------
+INSERT INTO `tabel_inventori_non_komputer` VALUES ('LABKOM001001', 'LABKOM001', 'PGW18003', 'sadasd', '434', 'baik', 'ffg', 'Dapat dipakai');
 INSERT INTO `tabel_inventori_non_komputer` VALUES ('NONKOM001', 'LABKOM001', 'PGW18002', 'Switch', '2017', 'baik', '1', 'Dapat dipakai');
 INSERT INTO `tabel_inventori_non_komputer` VALUES ('NONKOM002', 'LABKOM002', 'PGW18001', 'Switch', '2018', 'Baik', '', 'Dapat dipakai');
 INSERT INTO `tabel_inventori_non_komputer` VALUES ('NONKOM003', 'LABKOM001', 'PGW18002', 'Proyektor', '2018', 'baik', '1', 'Dapat dipakai');
@@ -138,8 +140,8 @@ INSERT INTO `tabel_laboratorium` VALUES ('LABKOM003', 'PGW18005', 'Lab Komputer 
 DROP TABLE IF EXISTS `tabel_maintenance`;
 CREATE TABLE `tabel_maintenance`  (
   `kd_maintenance` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `kd_inventori` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `kd_komputer` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_inventori` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_komputer` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `kd_lab` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `id_user` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `tanggal_lapor` date NOT NULL,
@@ -165,5 +167,6 @@ INSERT INTO `tabel_maintenance` VALUES ('M04', 'NONKOM001', '', 'LABKOM001', 'PG
 INSERT INTO `tabel_maintenance` VALUES ('M05', '', 'KOMLAB001', 'LABKOM001', 'PGW18002', '2018-11-23', '2018-11-30', '2018-12-14', 'keyboard rusak', 'Dikerjakan');
 INSERT INTO `tabel_maintenance` VALUES ('M06', '', 'KOMLAB004', 'LABKOM001', 'PGW18002', '2018-12-20', '2018-12-22', '2019-01-05', 'Monitor rusak', 'Dikerjakan');
 INSERT INTO `tabel_maintenance` VALUES ('M07', 'NONKOM004', '', 'LABKOM002', 'PGW18002', '2018-12-20', '2018-12-22', '2019-01-05', 'Proyektor rusak', 'Belum Dikerjakan');
+INSERT INTO `tabel_maintenance` VALUES ('M08', 'LABKOM001001', 'KOMLAB001', 'LABKOM001', 'PGW18003', '2018-12-10', '2018-12-10', '2018-12-24', 'dasd', 'Dikerjakan');
 
 SET FOREIGN_KEY_CHECKS = 1;
