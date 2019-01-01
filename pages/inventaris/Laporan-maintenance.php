@@ -2,7 +2,7 @@
     include "../../config/koneksi.php";
     include "validasi.php";
     $kd_lab = $_GET['kd_lab'];
-
+    $periode = isset($_GET['periode'])?$_GET['periode']:date('Y-m');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,26 +51,38 @@
                                         }
                                         ?>
                                          <?php foreach ($data_lab as $data) :  ?>
-                                        <strong>Data Maintenance <?php echo $data['nama_lab']; ?></strong>
+                                        <strong>Data Non Komputer <?php echo $data['nama_lab']; ?></strong>
                                         <?php  endforeach ?>
                                     </div>
 
                                     <div class="card-body card-block">
-                                        <div class="filters m-b-45" align="right">
-
-                                            <div class="row form-group">
-                                                <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Minimum date</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                    <input name="min" id="min" type="text" class="form-control form-control-sm">   
-                                                </div>
-
-                                                <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Maximum date</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                    <input name="max" id="max" type="text" class="form-control form-control-sm">
+                                        <div class="row">
+                                            <div class="col-lg-4 offset-lg-8">
+                                                <form action="" method="get">
+                                                    <div class="form-group">
+                                                        <div class="input-group mb-2">
+                                                            <select name="periode" id="periode" class="form-control" onchange="this.form.submit()">
+                                                                <?php
+                                                                $date = explode('-', date('Y-m'));
+                                                                $year = $date[0];
+                                                                $month = $date[1];
+                                                                $startMont = $date[1] - 5;
+                                                                for ($i = $startMont; $i < $month; ++$i) {
+                                                                    $time = strtotime(sprintf('+%d months', $i));
+                                                                    $value = date('Y-m', $time);
+                                                                    $label = date('F Y', $time);
+                                                                    $selected = $periode == $value? 'selected':null;
+                                                                    printf('<option value="%s" '.$selected.'>%s</option>', $value, $label);
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+                                                            </div>
+                                                            <input type="hidden" name="kd_lab" value="<?= $kd_lab?>">
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +103,7 @@
                                             $no=0;
                                             include "../../config/koneksi.php";
                                             $kd_lab = $data['kd_lab'];
-                                            $query = "SELECT * FROM tabel_maintenance where kd_lab = '$kd_lab'";
+                                            $query = "SELECT * FROM tabel_maintenance where kd_lab = '$kd_lab' AND DATE_FORMAT(tanggal_lapor,'%Y-%m') = '{$periode}'";
                                             $hasil = mysqli_query($db, $query);
                                             $data_mt = array();
                                             while ($row = mysqli_fetch_assoc($hasil)) {
@@ -108,11 +120,11 @@
                                                 <td><?php echo $data['jadwal_maintenance']; ?></td>
                                                 <td><?php echo $data['keterangan']; ?></td>
                                                 <td><?php echo $data['maintenance_selanjutnya']; ?></td>
-                                                <td><?php echo $data['status']; ?></td>   
+                                                <td><?php echo $data['status']; ?></td>
                                            </tr>
                                        <?php endforeach ?>
                                         </tbody>
-                                    </table> 
+                                    </table>
 
                                    <a href="cetak-laporan-maintenance.php?kd_lab=<?php echo $data['kd_lab'] ?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a>
                             </div>
@@ -133,30 +145,30 @@
  include"../partial/script.html";
  ?>
   <script>
-    $(document).ready(function(){
-        $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-            var min = $('#min').datepicker("getDate");
-            var max = $('#max').datepicker("getDate");
-            var startDate = new Date(data[4]);
-            if (min == null && max == null) { return true; }
-            if (min == null && startDate <= max) { return true;}
-            if(max == null && startDate >= min) {return true;}
-            if (startDate <= max && startDate >= min) { return true; }
-            return false;
-        }
-        );
-
-       
-            $("#min").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
-            $("#max").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
-            var table = $('#example').DataTable();
-
-            // Event listener to the two range filtering inputs to redraw on input
-            $('#min, #max').change(function () {
-                table.draw();
-            });
-        });
+    // $(document).ready(function(){
+    //     $.fn.dataTable.ext.search.push(
+    //     function (settings, data, dataIndex) {
+    //         var min = $('#min').datepicker("getDate");
+    //         var max = $('#max').datepicker("getDate");
+    //         var startDate = new Date(data[4]);
+    //         if (min == null && max == null) { return true; }
+    //         if (min == null && startDate <= max) { return true;}
+    //         if(max == null && startDate >= min) {return true;}
+    //         if (startDate <= max && startDate >= min) { return true; }
+    //         return false;
+    //     }
+    //     );
+    //
+    //
+    //         $("#min").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+    //         $("#max").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+    //         var table = $('#example').DataTable();
+    //
+    //         // Event listener to the two range filtering inputs to redraw on input
+    //         $('#min, #max').change(function () {
+    //             table.draw();
+    //         });
+    //     });
     </script>
 
   

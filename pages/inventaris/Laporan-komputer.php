@@ -1,7 +1,9 @@
 <?php
     include "../../config/koneksi.php";
+    include "../../functions/query.php";
     include "validasi.php";
     $kd_lab = $_GET['kd_lab'];
+    $periode = isset($_GET['periode'])?$_GET['periode']:date('Y-m');
 
 ?>
 <!DOCTYPE html>
@@ -54,7 +56,34 @@
                                         <strong>Data Komputer <?php echo $data['nama_lab']; ?></strong>
                                         <?php  endforeach ?>
                                     </div>
-
+                                    <br>
+                                    <div class="col-lg-4 offset-lg-8">
+                                        <form action="" method="get">
+                                            <div class="form-group">
+                                                <div class="input-group mb-2">
+                                                    <select name="periode" id="periode" class="form-control" onchange="this.form.submit()">
+                                                        <?php
+                                                        $date = explode('-', date('Y-m'));
+                                                        $year = $date[0];
+                                                        $month = $date[1];
+                                                        $startMont = $date[1] - 5;
+                                                        for ($i = $startMont; $i < $month; ++$i) {
+                                                            $time = strtotime(sprintf('+%d months', $i));
+                                                            $value = date('Y-m', $time);
+                                                            $label = date('F Y', $time);
+                                                            $selected = $periode == $value? 'selected':null;
+                                                            printf('<option value="%s" '.$selected.'>%s</option>', $value, $label);
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+                                                    </div>
+                                                    <input type="hidden" name="kd_lab" value="<?= $kd_lab?>">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                      <div class="col-lg-12">
                                         <div class="au-card m-b-30">
                                             <div class="au-card-inner">
@@ -65,6 +94,7 @@
                                      </div>
 
                                     <div class="card-body card-block">
+                                      
                                        <table id="example" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
@@ -77,145 +107,13 @@
                                         </thead>
                                         
                                         <tbody>
-                                            <tr>
-                                                <td>Monitor</td>
-                                                <?php
-                                                $lab = $data['kd_lab']; 
-                                                $query = "SELECT monitor,
-                                                        SUM(IF(monitor='baik',1, 0)) as baik,
-                                                        SUM(IF(monitor='buruk',1, 0)) as buruk
-                                                        from tabel_inventori_komputer where kd_lab='$lab' ";
-                                                $hasil = mysqli_query($db, $query);
-                                                $data = array();
-                                                while ($row = mysqli_fetch_assoc($hasil)) {
-                                                $data[] = $row;
-                                                }
-                                                ?>
-                                                <?php foreach ($data as $total) :  ?>
-                                                <td><center><?php echo $total['baik']; ?></center></td>
-                                                <td><center><?php echo $total['buruk']; ?></center></td>
-                                                <?php endforeach ?>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Keyboard</td>
-                                                <?php
-                                                $query = "SELECT keyboard,
-                                                        SUM(IF(keyboard='baik',1, 0)) as baik,
-                                                        SUM(IF(keyboard='buruk',1, 0)) as buruk
-                                                        from tabel_inventori_komputer where kd_lab='$lab' ";
-                                                $hasil = mysqli_query($db, $query);
-                                                $data = array();
-                                                while ($row = mysqli_fetch_assoc($hasil)) {
-                                                $data[] = $row;
-                                                }
-                                               
-                                                ?>
-                                                <?php foreach ($data as $total) :  ?>
-                                                <td><center><?php echo $total['baik']; ?></center></td>
-                                                <td><center><?php echo $total['buruk']; ?></center></td>
-                                                <?php endforeach ?>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Mouse</td>
-                                               <?php
-                                                $query = "SELECT mouse,
-                                                        SUM(IF(mouse='baik',1, 0)) as baik,
-                                                        SUM(IF(mouse='buruk',1, 0)) as buruk
-                                                        from tabel_inventori_komputer where kd_lab='$lab' ";
-                                                $hasil = mysqli_query($db, $query);
-                                                $data = array();
-                                                while ($row = mysqli_fetch_assoc($hasil)) {
-                                                $data[] = $row;
-                                                }
-                                               
-                                                ?>
-                                                <?php foreach ($data as $total) :  ?>
-                                                <td><center><?php echo $total['baik']; ?></center></td>
-                                                <td><center><?php echo $total['buruk']; ?></center></td>
-                                                <?php endforeach ?>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Memory</td>
-                                                <?php
-                                                $query = "SELECT memory,
-                                                        SUM(IF(memory='baik',1, 0)) as baik,
-                                                        SUM(IF(memory='buruk',1, 0)) as buruk
-                                                        from tabel_inventori_komputer where kd_lab='$lab' ";
-                                                $hasil = mysqli_query($db, $query);
-                                                $data = array();
-                                                while ($row = mysqli_fetch_assoc($hasil)) {
-                                                $data[] = $row;
-                                                }
-                                               
-                                                ?>
-                                                <?php foreach ($data as $total) :  ?>
-                                                <td><center><?php echo $total['baik']; ?></center></td>
-                                                <td><center><?php echo $total['buruk']; ?></center></td>
-                                                <?php endforeach ?>
-                                            </tr>
-
-                                            <tr>
-                                                <td>HDD</td>
-                                               <?php
-                                                $query = "SELECT hdd,
-                                                        SUM(IF(hdd='baik',1, 0)) as baik,
-                                                        SUM(IF(hdd='buruk',1, 0)) as buruk
-                                                        from tabel_inventori_komputer where kd_lab='$lab' ";
-                                                $hasil = mysqli_query($db, $query);
-                                                $data = array();
-                                                while ($row = mysqli_fetch_assoc($hasil)) {
-                                                $data[] = $row;
-                                                }
-                                               
-                                                ?>
-                                                <?php foreach ($data as $total) :  ?>
-                                                <td><center><?php echo $total['baik']; ?></center></td>
-                                                <td><center><?php echo $total['buruk']; ?></center></td>
-                                                <?php endforeach ?>
-                                            </tr>
-
-                                             <tr>
-                                                <td>Processor</td>
-                                               <?php
-                                                $query = "SELECT processor,
-                                                        SUM(IF(processor='baik',1, 0)) as baik,
-                                                        SUM(IF(processor='buruk',1, 0)) as buruk
-                                                        from tabel_inventori_komputer where kd_lab='$lab' ";
-                                                $hasil = mysqli_query($db, $query);
-                                                $data = array();
-                                                while ($row = mysqli_fetch_assoc($hasil)) {
-                                                $data[] = $row;
-                                                }
-                                               
-                                                ?>
-                                                <?php foreach ($data as $total) :  ?>
-                                                <td><center><?php echo $total['baik']; ?></center></td>
-                                                <td><center><?php echo $total['buruk']; ?></center></td>
-                                                <?php endforeach ?>
-                                            </tr>
-
-                                             <tr>
-                                                <td>UPS</td>
-                                                <?php
-                                                $query = "SELECT ups,
-                                                        SUM(IF(ups='baik',1, 0)) as baik,
-                                                        SUM(IF(ups='buruk',1, 0)) as buruk
-                                                        from tabel_inventori_komputer where kd_lab='$lab' ";
-                                                $hasil = mysqli_query($db, $query);
-                                                $data = array();
-                                                while ($row = mysqli_fetch_assoc($hasil)) {
-                                                $data[] = $row;
-                                                }
-                                               
-                                                ?>
-                                                <?php foreach ($data as $total) :  ?>
-                                                <td><center><?php echo $total['baik']; ?></center></td>
-                                                <td><center><?php echo $total['buruk']; ?></center></td>
-                                                <?php endforeach ?>
-                                            </tr>
+                                        <tr><td>Monitor</td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'monitor',0); ?></td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'monitor',1); ?></td></tr>
+                                        <tr><td>Keyboard</td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'keyboard',0); ?></td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'keyboard',1); ?></td></tr>
+                                        <tr><td>Mouse</td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'mouse',0); ?></td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'mouse',1); ?></td></tr>
+                                        <tr><td>Memory</td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'memory',0); ?></td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'memory',1); ?></td></tr>
+                                        <tr><td>HDD</td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'hdd',0); ?></td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'hdd',1); ?></td></tr>
+                                        <tr><td>Processor</td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'processor',0); ?></td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'processor',1); ?></td></tr>
+                                        <tr><td>UPS</td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'ups',0); ?></td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'ups',1); ?></td></tr>
                                         </tbody>
                                     </table> 
                                     <a href="cetak-laporan-komputer.php?kd_lab=<?php echo $kd_lab ?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a> 
@@ -256,34 +154,13 @@
               label: "Rusak",
               data: 
               [
-              <?php
-              $jumlah_monitor = mysqli_query($db,"select*from tabel_inventori_komputer where monitor='buruk' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_monitor);
-              ?>, 
-              <?php
-              $jumlah_keyboard = mysqli_query($db,"select *  from tabel_inventori_komputer where keyboard='buruk' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_keyboard);
-              ?>, 
-              <?php
-              $jumlah_mouse = mysqli_query($db,"select * from tabel_inventori_komputer where mouse='buruk' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_mouse);
-              ?>, 
-              <?php
-              $jumlah_memory = mysqli_query($db,"select * from tabel_inventori_komputer where memory='buruk' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_memory);
-              ?>, 
-              <?php
-              $jumlah_hdd = mysqli_query($db,"select * from tabel_inventori_komputer where hdd='buruk' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_hdd);
-              ?>,
-              <?php
-              $jumlah_processor = mysqli_query($db,"select * from tabel_inventori_komputer where processor='buruk' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_processor);
-              ?>, 
-              <?php
-              $jumlah_ups = mysqli_query($db,"select * from tabel_inventori_komputer where ups='buruk' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_ups);
-              ?>
+              <?= get_maintenance_komp_periode_count($kd_lab,$periode,'monitor',1); ?>,
+              <?= get_maintenance_komp_periode_count($kd_lab,$periode,'keyboard',1); ?>,
+              <?= get_maintenance_komp_periode_count($kd_lab,$periode,'mouse',1); ?>,
+              <?= get_maintenance_komp_periode_count($kd_lab,$periode,'memory',1); ?>,
+              <?= get_maintenance_komp_periode_count($kd_lab,$periode,'hdd',1); ?>,
+              <?= get_maintenance_komp_periode_count($kd_lab,$periode,'processor',1); ?>,
+              <?= get_maintenance_komp_periode_count($kd_lab,$periode,'ups',1); ?>
               ],
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
@@ -294,34 +171,13 @@
               label: "Baik",
               data: 
               [
-              <?php
-              $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where monitor='baik' and kd_lab='$kd_lab'");
-              echo mysqli_num_rows($jumlah_monitor);
-              ?>, 
-              <?php
-              $jumlah_keyboard = mysqli_query($db,"select * from tabel_inventori_komputer where keyboard='baik' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_keyboard);
-              ?>, 
-              <?php
-              $jumlah_mouse = mysqli_query($db,"select * from tabel_inventori_komputer where mouse='baik' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_mouse);
-              ?>, 
-              <?php
-              $jumlah_memory = mysqli_query($db,"select * from tabel_inventori_komputer where memory='baik' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_memory);
-              ?>, 
-              <?php
-              $jumlah_hdd = mysqli_query($db,"select * from tabel_inventori_komputer where hdd='baik' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_hdd);
-              ?>,
-              <?php
-              $jumlah_processor = mysqli_query($db,"select * from tabel_inventori_komputer where processor='baik' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_processor);
-              ?>, 
-              <?php
-              $jumlah_ups = mysqli_query($db,"select * from tabel_inventori_komputer where ups='baik' and kd_lab='$kd_lab' ");
-              echo mysqli_num_rows($jumlah_ups);
-              ?>
+                  <?= get_maintenance_komp_periode_count($kd_lab,$periode,'monitor',0); ?>,
+                  <?= get_maintenance_komp_periode_count($kd_lab,$periode,'keyboard',0); ?>,
+                  <?= get_maintenance_komp_periode_count($kd_lab,$periode,'mouse',0); ?>,
+                  <?= get_maintenance_komp_periode_count($kd_lab,$periode,'memory',0); ?>,
+                  <?= get_maintenance_komp_periode_count($kd_lab,$periode,'hdd',0); ?>,
+                  <?= get_maintenance_komp_periode_count($kd_lab,$periode,'processor',0); ?>,
+                  <?= get_maintenance_komp_periode_count($kd_lab,$periode,'ups',0); ?>
               ],
 
               borderColor: "rgba(0,0,0,0.09)",
