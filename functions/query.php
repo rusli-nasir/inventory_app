@@ -94,3 +94,20 @@ if (!function_exists('auto_number')) {
         return $prefix . sprintf("%0{$digit}s", $noUrut);
     }
 }
+
+/**
+ * Get MaintenanceKomputerPeriode
+ * function get_maintenance_komp_periode($periode,$perangkat)
+ *
+ **/
+if (!function_exists('get_maintenance_komp_periode_count')) {
+    function get_maintenance_komp_periode_count($lab, $periode,$perangkat,$rusak = 1){
+        $query = "SELECT COUNT(*) as counter FROM tabel_maintenance WHERE DATE_FORMAT(tanggal_lapor,'%Y-%m') = '{$periode}' AND {$perangkat} = {$rusak} AND kd_lab = '{$lab}'";
+        $result = query($query);
+        if($result){
+            $data = mysqli_fetch_array($result);
+            return $data['counter'];
+        }
+        return 0;
+    }
+}

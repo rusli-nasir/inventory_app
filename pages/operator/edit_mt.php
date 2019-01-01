@@ -12,8 +12,19 @@ $maintenance_selanjutnya = date('Y-m-d', strtotime('+14 days', strtotime($jadwal
 $keterangan = $_POST['keterangan'];
 $status = $_POST['status'];
 
+$perangkat = $_POST['perangkat'];
 
-$query = "UPDATE tabel_maintenance SET kd_inventori = '$kd_inventori',
+$monitor = in_array('monitor',$perangkat)?1:0;
+$keyboard = in_array('keyboard',$perangkat)?1:0;
+$mouse = in_array('mouse',$perangkat)?1:0;
+$memory = in_array('memory',$perangkat)?1:0;
+$hdd = in_array('hdd',$perangkat)?1:0;
+$processor = in_array('processor',$perangkat)?1:0;
+$ups = in_array('ups',$perangkat)?1:0;
+
+
+$query = "UPDATE tabel_maintenance SET 
+                                 kd_inventori = '$kd_inventori',
 								 kd_komputer = '$kd_komputer',
 								 kd_lab = '$kd_lab',
 								 id_user = '$id_user',
@@ -21,7 +32,14 @@ $query = "UPDATE tabel_maintenance SET kd_inventori = '$kd_inventori',
 								 jadwal_maintenance = '$jadwal_maintenance',
 								 maintenance_selanjutnya = '$maintenance_selanjutnya',
 								 keterangan = '$keterangan',
-								 status = '$status'
+								 status = '$status',
+								 monitor = $monitor,
+								 keyboard = $keyboard,
+                                 mouse = $mouse,
+                                 memory = $memory,
+                                 hdd = $hdd,
+                                 processor = $processor,
+                                 ups = $ups
 								 WHERE kd_maintenance = '$kd_maintenance'";
 
 $hasil = mysqli_query($db,$query);

@@ -98,18 +98,11 @@
                                                 <td><?php echo $data['keterangan']; ?></td>
                                                 <td><?php echo $data['status']; ?></td>
                                                 <td>
-                                                    <?php
-                                                    if($data['id_user'] == $id){
-                                                        ?>
-                                                        <center>
-                                                            <a href="ubah-non-komputer.php?kd_inventori=<?php echo $data['kd_inventori'] ?>" class="btn btn-primary waves-effect" >
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                        </center>
-                                                        <?php
-                                                    }
-                                                    ?>
-
+                                                    <center>
+                                                        <a href="ubah-non-komputer.php?kd_inventori=<?php echo $data['kd_inventori'] ?>" class="btn btn-primary waves-effect" >
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    </center>
                                                 </td>   
                                            </tr>
                                        <?php endforeach ?>

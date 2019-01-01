@@ -123,9 +123,7 @@ $cetakKode = $kdKom  ;
                                                 </div>
                                                 <div class="col-12 col-md-4">
                                                    
-                                                <select name="kd_komputer" class="form-control-sm form-control" id="kd_komputer">
-                                                   
-                                                </select>
+                                                <select name="kd_komputer" class="form-control-sm form-control" id="kd_komputer"></select>
                                                 </div>
                                                  <div class="col col-md-2">
                                                     <label for="text-input" class=" form-control-label">Status</label>

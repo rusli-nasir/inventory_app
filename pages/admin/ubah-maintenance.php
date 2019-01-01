@@ -61,11 +61,26 @@ include "validasi.php";
                                                     
                                                 </div>
                                                 <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Tanggal lapor</label>
+                                                    <label for="text-input" class=" form-control-label">Kode Inventori</label>
                                                 </div>
                                                 <div class="col-12 col-md-4">
-                                                    <input id="tgl_mulai" type="text" class="form-control datepicker" name="tanggal_lapor"  value="<?php echo $data_mt[0]['tanggal_lapor'] ?>">
-                                                    
+                                                    <?php
+                                                    include('../../config/koneksi.php');
+                                                    $query = "SELECT * FROM tabel_inventori_non_komputer";
+                                                    $hasil = mysqli_query($db, $query);
+                                                    $data_inv = array();
+                                                    while ($row = mysqli_fetch_assoc($hasil)) {
+                                                        $data_inv[] = $row;
+                                                    }
+                                                    ?>
+                                                    <select name="kd_inventori" class="form-control-sm form-control"<?= $data_mt[0]['kd_inventori']?'':'disabled'?>>>
+                                                        <option value="<?php echo $data_mt[0]['kd_inventori'] ?>" selected><?php echo $data_mt[0]['kd_inventori'] ?></option>
+                                                        <option>----------------------</option>
+                                                        <?php foreach ($data_inv as $data) : ?>
+                                                            <option value="<?php echo $data['kd_inventori'] ?>">
+                                                                <?php echo $data['kd_inventori'] ?> | <?php echo $data['nama_inventori'] ?> </option>
+                                                        <?php endforeach ?>
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -94,10 +109,10 @@ include "validasi.php";
                                                     
                                                 </div>
                                                <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Jadwal Maintenance</label>
+                                                    <label for="text-input" class=" form-control-label">Tanggal lapor</label>
                                                 </div>
                                                 <div class="col-12 col-md-4">
-                                                    <input id="tgl_mulai" type="text" class="form-control datepicker" name="jadwal_maintenance"  value="<?php echo $data_mt[0]['jadwal_maintenance'] ?>">
+                                                    <input id="tgl_mulai" type="text" class="form-control datepicker" name="tanggal_lapor"  value="<?php echo $data_mt[0]['tanggal_lapor'] ?>">
                                                     
                                                 </div>
                                             </div>
@@ -125,44 +140,44 @@ include "validasi.php";
                                                       <?php endforeach ?>
                                                     </select>
                                                 </div>
-                                                <div class="col col-md-2">
+                                                 <div class="col col-md-2">
+                                                    <label for="text-input" class=" form-control-label">Jadwal Maintenance</label>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <input id="tgl_mulai" type="text" class="form-control datepicker" name="jadwal_maintenance"  value="<?php echo $data_mt[0]['jadwal_maintenance'] ?>">
+                                                    
+                                                </div>
+                                            </div>
+
+                                             <div class="row form-group">
+                                                 <div class="col col-md-2">
+                                                     <label for="text-input" class=" form-control-label">Kode Komputer</label>
+                                                 </div>
+                                                 <div class="col-12 col-md-4">
+                                                     <?php
+                                                     include('../../config/koneksi.php');
+                                                     $query = "SELECT * FROM tabel_inventori_komputer";
+                                                     $hasil = mysqli_query($db, $query);
+                                                     $data_kom = array();
+                                                     while ($row = mysqli_fetch_assoc($hasil)) {
+                                                         $data_kom[] = $row;
+                                                     }
+                                                     ?>
+                                                     <select name="kd_komputer" class="form-control-sm form-control" <?= $data_mt[0]['kd_komputer']?'':'disabled'?>>
+                                                         <option value="<?php echo $data_mt[0]['kd_komputer'] ?>" selected><?php echo $data_mt[0]['kd_komputer'] ?></option>
+                                                         <option>----------------------</option>
+                                                         <?php foreach ($data_kom as $data) : ?>
+                                                             <option value="<?php echo $data['kd_komputer'] ?>">
+                                                                 <?php echo $data['kd_komputer'] ?> | <?php echo $data['nama_komputer'] ?> </option>
+                                                         <?php endforeach ?>
+                                                     </select>
+                                                 </div>
+                                                 <div class="col col-md-2">
                                                     <label for="text-input" class=" form-control-label">Keterangan</label>
                                                 </div>
                                                 <div class="col-12 col-md-4">
                                                     <input type="text" name="keterangan" class="form-control" value="<?php echo $data_mt[0]['keterangan'] ?>">
                                                     
-                                                </div> 
-                                            </div>
-
-                                             <div class="row form-group">
-                                                <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Kode Komputer</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                   <?php
-                                                    include('../../config/koneksi.php');
-                                                    $query = "SELECT * FROM tabel_inventori_komputer";
-                                                    $hasil = mysqli_query($db, $query);
-                                                    $data_kom = array();
-                                                    while ($row = mysqli_fetch_assoc($hasil)) {
-                                                    $data_kom[] = $row;
-                                                     }
-                                                    ?>
-                                                   <select name="kd_komputer" class="form-control-sm form-control">
-                                                      <option value="<?php echo $data_mt[0]['kd_komputer'] ?>" selected><?php echo $data_mt[0]['kd_komputer'] ?></option>
-                                                      <option>----------------------</option>
-                                                      <?php foreach ($data_kom as $data) : ?>
-                                                      <option value="<?php echo $data['kd_komputer'] ?>">
-                                                      <?php echo $data['kd_komputer'] ?> | <?php echo $data['nama_komputer'] ?> </option>
-                                                      <?php endforeach ?>
-                                                    </select>
-                                                </div>
-
-                                                 <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Status</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                   <input type="text" name="status" class="form-control" value="<?php echo $data_mt[0]['status'] ?>" readonly="readonly">
                                                 </div>
                                                 
                                             </div>
@@ -176,13 +191,56 @@ include "validasi.php";
                                                     
                                                 </div>
                                                 
-                                                
+                                                <div class="col col-md-2">
+                                                    <label for="text-input" class=" form-control-label">Status</label>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                   <select name="status" class="form-control-sm form-control">
+                                                  <option value="<?php echo $data_mt[0]['status'] ?>"><?php echo $data_mt[0]['status'] ?></option>
+                                                   <option>----------------------</option>
+                                                   <option value="Dikerjakan">Dikerjakan</option>
+                                                   <option value="Belum Dikerjakan">Belum Dikerjakan</option>
+                                                   </select>
+                                                </div>
                                               
                                             </div>
+                                            <?php
+                                            if($data_mt[0]['kd_komputer']){
+                                                ?>
+                                                <div class="row form-group">
+                                                    <div class="col col-md-2">
+                                                        <label for="text-input" class=" form-control-label">Perangkat Rusak</label>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <?php
+                                                        $perangkat = array (
+                                                            'monitor' => 'Monitor',
+                                                            'keyboard' => 'Keyboard',
+                                                            'mouse' => 'Mouse',
+                                                            'memory' => 'Memory',
+                                                            'hdd' => 'HDD',
+                                                            'processor' => 'Processor',
+                                                            'ups' => 'UPS',
+                                                        );
+                                                        foreach ($perangkat as $key => $val){
+                                                            $checked = $data_mt[0][$key]?'checked':null;
+                                                            ?>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox" id="perangkat" name="perangkat[]" value="<?= $key?>" <?= $checked?>>
+                                                                <label class="form-check-label" for="inlineCheckbox1"><?= $val?></label>
+                                                            </div>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                            ?>
 
                                             <div class="button-submit">
                                                 <input type="submit" class="btn btn-primary btn-sm" value="SIMPAN"></input>
-                                                <<button type="reset" class="btn btn-danger btn-sm" onclick="window.location.href='data-mt.php'">Batal</button>
+                                                <input type="reset" class="btn btn-danger btn-sm" value="BATAL"></input>
                                             </div>
                                             </div>
                                         </form>

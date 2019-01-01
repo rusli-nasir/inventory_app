@@ -113,18 +113,11 @@
                                                 <td><?php echo $data['keterangan_komputer']; ?></td>
                                                 <td><?php echo $data['status']; ?></td>
                                                 <td>
-                                                    <?php
-                                                    if($data['id_user'] == $id){
-                                                        ?>
-                                                        <center>
-                                                            <a href="ubah-komputer.php?kd_komputer=<?php echo $data['kd_komputer'] ?>" class="btn btn-primary waves-effect" >
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                        </center>
-                                                        <?php
-                                                    }
-                                                    ?>
-
+                                                    <center>
+                                                        <a href="ubah-komputer.php?kd_komputer=<?php echo $data['kd_komputer'] ?>" class="btn btn-primary waves-effect" >
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    </center>
                                                 </td>   
                                            </tr>
                                        <?php endforeach ?>

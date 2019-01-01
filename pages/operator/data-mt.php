@@ -85,17 +85,11 @@
                                                 <td><?php echo $data['maintenance_selanjutnya']; ?></td>
                                                 <td><?php echo $data['status']; ?></td>
                                                 <td>
-                                                    <?php
-                                                    if($data['id_user'] == $id){
-                                                        ?>
-                                                        <center>
-                                                            <a href="ubah-maintenance.php?kd_maintenance=<?php echo $data['kd_maintenance'] ?>" class="btn btn-primary waves-effect" >
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                        </center>
-                                                        <?php
-                                                    }
-                                                    ?>
+                                                    <center>
+                                                        <a href="ubah-maintenance.php?kd_maintenance=<?php echo $data['kd_maintenance'] ?>" class="btn btn-primary waves-effect" >
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
+                                                    </center>
                                                 </td>   
                                            </tr>
                                        <?php endforeach ?>
