@@ -1,10 +1,15 @@
 <?php
+$kd_lab = $_GET['kd_lab'];
+$periode = isset($_GET['periode'])?$_GET['periode']:date('Y-m');
+$periodeLabel = date('F Y',strtotime($periode . '-01'));
 require_once("../../assets/fpdf/fpdf.php");
 require_once("../../config/koneksi.php");
-$kd_lab = $_GET['kd_lab']; 
+include "../../functions/query.php";
+
 
 class PDF extends FPDF
 {
+    public $periode;
     // Page header
     function Header()
     {
@@ -36,6 +41,7 @@ class PDF extends FPDF
         $this->Ln(5);
         $this->Cell(188,8,'LAPORAN MAINTENANCE LABORATORIUM KOMPUTER',0,1,'C');
         $this->Cell(188,8,'SMP NEGERI 5 MENGWI',0,1,'C');
+        $this->Cell(188,8,'PERIODE ' . $this->periode,0,1,'C');
         $this->Ln(5);
 
 
@@ -71,6 +77,7 @@ class PDF extends FPDF
 
 
 $pdf = new PDF('P', 'mm', [210, 297]);
+$pdf->periode = $periodeLabel;
 $pdf->AliasNbPages();
 $pdf->AddPage();
 
@@ -79,71 +86,55 @@ $pdf->SetFont('Times','',12);
 
 // set penomoran
 $nomor = 1;
+
     
     $pdf->cell(90,7,'Monitor',1,0,'L');
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where monitor='baik' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'monitor',0);
     $pdf->cell(50,7,$jumlah,1,0,'C');
-
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where monitor='buruk' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'monitor',1);
     $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
 
     $pdf->cell(90,7,'Keyboard',1,0,'L');
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where keyboard='baik' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'keyboard',0);
     $pdf->cell(50,7,$jumlah,1,0,'C');
-
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where keyboard='buruk' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'keyboard',1);
     $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
 
     $pdf->cell(90,7,'Mouse',1,0,'L');
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where mouse='baik' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'mouse',0);
     $pdf->cell(50,7,$jumlah,1,0,'C');
 
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where mouse='buruk' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'mouse',1);
     $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
 
     $pdf->cell(90,7,'Memory',1,0,'L');
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where memory='baik' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'memory',0);
     $pdf->cell(50,7,$jumlah,1,0,'C');
 
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where memory='buruk' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'memory',1);
     $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
 
     $pdf->cell(90,7,'HDD',1,0,'L');
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where hdd='baik' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'hdd',0);
     $pdf->cell(50,7,$jumlah,1,0,'C');
 
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where hdd='buruk' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'hdd',1);
     $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
 
     $pdf->cell(90,7,'Processor',1,0,'L');
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where processor='baik' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'processor',0);
     $pdf->cell(50,7,$jumlah,1,0,'C');
 
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where processor='buruk' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'processor',1);
     $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
 
     $pdf->cell(90,7,'UPS',1,0,'L');
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where ups='baik' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'ups',0);
     $pdf->cell(50,7,$jumlah,1,0,'C');
 
-    $jumlah_monitor = mysqli_query($db,"select * from tabel_inventori_komputer where ups='buruk' and kd_lab='$kd_lab'");
-    $jumlah = mysqli_num_rows($jumlah_monitor);
+    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'ups',1);
     $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
 
-   
     $pdf->Ln(5);
 
 $pdf->Output('Cetak Inventaris Komputer','I');

@@ -1,9 +1,14 @@
 <?php
+$kd_lab = $_GET['kd_lab'];
+$periode = isset($_GET['periode'])?$_GET['periode']:date('Y-m');
+$periodeLabel = date('F Y',strtotime($periode . '-01'));
 require_once("../../assets/fpdf/fpdf.php");
 require_once("../../config/koneksi.php");
+include "../../functions/query.php";
 
 class PDF extends FPDF
 {
+    public $periode;
     // Page header
     function Header()
     {
@@ -31,12 +36,6 @@ class PDF extends FPDF
         for ($i=0; $i < 10; $i++) {
             $this->Cell(308,0,'',1,1,'C');
         }
-        
-
-
-       
-
-
     }
 
     // Page footer
@@ -61,8 +60,7 @@ class PDF extends FPDF
 }
 
 // ambil dari database
-$kd_lab = $_GET['kd_lab'];
-$query = "SELECT * from tabel_maintenance where kd_lab='$kd_lab'";
+$query = "SELECT * from tabel_maintenance where kd_lab='$kd_lab' AND DATE_FORMAT(tanggal_lapor,'%Y-%m') = '{$periode}'";
 $hasil = mysqli_query($db, $query);
 $data_mt = array();
 while ($row = mysqli_fetch_assoc($hasil)) {
@@ -71,6 +69,7 @@ while ($row = mysqli_fetch_assoc($hasil)) {
 
 
 $pdf = new PDF('L', 'mm', [210, 330]);
+$pdf->periode = $periodeLabel;
 $pdf->AliasNbPages();
 $pdf->AddPage();
 
@@ -82,6 +81,7 @@ $row   = mysqli_fetch_assoc($hasil);
 $pdf->Ln(5);
 $pdf->Cell(310,8,'LAPORAN MAINTENANCE '.$row['nama_lab'],0,1,'C');          
 $pdf->Cell(310,8,'SMP NEGERI 5 MENGWI',0,1,'C');
+$pdf->Cell(310,8,'PERIODE ' . $periodeLabel,0,1,'C');
 $pdf->Ln(5);
 
  $pdf->SetFont('Times','B',9.5);
@@ -103,6 +103,7 @@ $pdf->SetFont('Times','',7);
 
 // set penomoran
 $nomor = 1;
+
 
 foreach ($data_mt as $data) {
     $pdf->cell(8, 7, $nomor++ . '.', 1, 0, 'C');

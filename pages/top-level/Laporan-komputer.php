@@ -116,7 +116,7 @@
                                         <tr><td>UPS</td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'ups',0); ?></td><td><?= get_maintenance_komp_periode_count($kd_lab,$periode,'ups',1); ?></td></tr>
                                         </tbody>
                                     </table> 
-                                    <a href="cetak-laporan-komputer.php?kd_lab=<?php echo $kd_lab ?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a> 
+                                    <a target="_blank" href="cetak-laporan-komputer.php?kd_lab=<?php echo $kd_lab ?>&periode=<?= $periode?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a>
                             </div>
                         </div>
                         <?php

@@ -126,7 +126,7 @@
                                         </tbody>
                                     </table>
 
-                                   <a href="cetak-laporan-maintenance.php?kd_lab=<?php echo $data['kd_lab'] ?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a>
+                                   <a target="_blank" href="cetak-laporan-maintenance.php?kd_lab=<?php echo $data['kd_lab'] ?>&periode=<?= $periode?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a>
                             </div>
                         </div>
                         <?php
