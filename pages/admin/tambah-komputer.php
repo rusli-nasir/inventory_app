@@ -22,6 +22,7 @@ $kd_lab = $_GET['kd_lab']?$_GET['kd_lab'] . '/DKOM':'DKOM';
 //$char = "KOMLAB";
 //$kdKom = $char . sprintf("%03s", $noUrut);
 $cetakKode = auto_number($kd_lab,'tabel_inventori_komputer','kd_komputer',3)  ;
+$kd_lab = $_GET['kd_lab'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
