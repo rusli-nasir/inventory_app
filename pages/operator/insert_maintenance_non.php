@@ -21,14 +21,15 @@ $processor = in_array('processor',$perangkat)?1:0;
 $ups = in_array('ups',$perangkat)?1:0;
 
 
-$query = "INSERT INTO tabel_maintenance VALUES ('$kd_maintenance','$kd_inventori','','$kd_lab','$id_user','$tanggal_lapor','$jadwal_maintenance','$maintenance_selanjutnya','$keterangan','$status');";
+$query = "INSERT INTO tabel_maintenance VALUES ('$kd_maintenance','$kd_inventori','','$kd_lab','$id_user','$tanggal_lapor','$jadwal_maintenance','$maintenance_selanjutnya','$keterangan','$status',
+{$monitor},{$keyboard},{$mouse},{$memory},{$hdd},{$processor},{$ups});";
 
 $hasil = mysqli_query($db, $query);
-if($hasil){ 
-    echo "<script>window.alert('Maintenance Berhasil'); window.location.href='index.php'</script>"; 
-  }else{
-   echo "<script>window.alert('Maintenance Gagal'); window.location.href='tambah-mt.php'</script>";
-  }
+if($hasil){
+    echo "<script>window.alert('Maintenance Berhasil'); window.location.href='data-mt-nonkomputer.php'</script>";
+}else{
+    echo "<script>window.alert('Maintenance Gagal'); window.location.href='tambah-mt-nonkomputer.php'</script>";
+}
 
 ?>
 
