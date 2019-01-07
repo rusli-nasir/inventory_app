@@ -142,9 +142,17 @@
             {
               label: "Rusak",
               data: 
-              [<?php echo mysqli_num_rows($rusak)?>
-            
-              ],
+              [<?php
+                      mysqli_data_seek($hasil,0);
+                      if($hasil){
+                          while ($item = mysqli_fetch_assoc($hasil)){
+                              $datarusak = mysqli_query($db,"select count(*) as jumlah from tabel_inventori_non_komputer where kondisi='rusak' and kd_lab='$kd_lab' and kd_inventori='{$item['kd_inventori']}'");
+                              $data = mysqli_fetch_object($datarusak);
+                              echo $data->jumlah . ',';
+                          }
+                      }
+//                  echo mysqli_num_rows($rusak)
+              ?>],
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(0, 123, 255, 0.5)",
@@ -153,9 +161,18 @@
             {
               label: "Baik",
               data: 
-              [<?php echo mysqli_num_rows($baik)?> 
-              
-              ],
+              [<?php
+                  mysqli_data_seek($hasil,0);
+                  if($hasil){
+                      while ($item = mysqli_fetch_assoc($hasil)){
+                          $datarusak = mysqli_query($db,"select count(*) as jumlah from tabel_inventori_non_komputer where kondisi='baik' and kd_lab='$kd_lab' and kd_inventori='{$item['kd_inventori']}'");
+                          $data = mysqli_fetch_object($datarusak);
+                          echo $data->jumlah . ',';
+                      }
+                  }
+//                  echo mysqli_num_rows($baik)
+//
+              ?>],
 
               borderColor: "rgba(0,0,0,0.09)",
               borderWidth: "0",
