@@ -183,29 +183,8 @@ include "../partial/head.html";
                                             </div>
                                             <div class="col-12 col-md-4">
                                                 <input type="text" name="os_komputer" class="form-control" required>
+                                            </div>
 
-                                            </div>
-                                            <div class="col col-md-2">
-                                                <label for="text-input" class=" form-control-label">Komponen Lainnya</label>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <input type="text" name="komponen_lain" class="form-control" required>
-
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row form-group">
-                                            <div class="col col-md-2">
-                                                <label for="text-input" class=" form-control-label">Monitor</label>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <select name="monitor" class="form-control-sm form-control" required>
-                                                    <option value="">Please select</option>
-                                                    <option value="baik">Baik</option>
-                                                    <option value="buruk">Buruk</option>
-                                                </select>
-                                            </div>
                                             <div class="col col-md-2">
                                                 <label for="text-input" class=" form-control-label">Keterangan Komputer</label>
                                             </div>
@@ -213,14 +192,21 @@ include "../partial/head.html";
                                                 <input type="text" name="keterangan_komputer" class="form-control" required>
 
                                             </div>
-                                        </div>
-
-                                        <div class="row form-group">
+                                            <!--
                                             <div class="col col-md-2">
-                                                <label for="text-input" class=" form-control-label">Keyboard</label>
+                                                <label for="text-input" class=" form-control-label">Komponen Lainnya</label>
                                             </div>
                                             <div class="col-12 col-md-4">
-                                                <select name="keyboard" class="form-control-sm form-control" required>
+                                                <input type="text" name="komponen_lain" class="form-control" required>
+                                            </div>
+                                            -->
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col col-md-2">
+                                                <label for="text-input" class=" form-control-label">Monitor</label>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <select name="monitor" class="form-control-sm form-control" required>
                                                     <option value="">Please select</option>
                                                     <option value="baik">Baik</option>
                                                     <option value="buruk">Buruk</option>
@@ -234,6 +220,19 @@ include "../partial/head.html";
                                                     <option value="0">Please select</option>
                                                     <option value="Dapat Dipakai">Dapat Dipakai</option>
                                                     <option value="Tidak Dapat Dipakai">Tidak Dapat Dipakai</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-group">
+                                            <div class="col col-md-2">
+                                                <label for="text-input" class=" form-control-label">Keyboard</label>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <select name="keyboard" class="form-control-sm form-control" required>
+                                                    <option value="">Please select</option>
+                                                    <option value="baik">Baik</option>
+                                                    <option value="buruk">Buruk</option>
                                                 </select>
                                             </div>
                                         </div>

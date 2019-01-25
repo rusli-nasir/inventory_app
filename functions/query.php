@@ -68,6 +68,19 @@ if (!function_exists('daftar_inv_non_komputer')) {
 }
 
 /**
+ * Daftar Komponen Komputer
+ * function daftar_inv_komponen_komputer($kode_lab)
+ *
+ **/
+if (!function_exists('daftar_inv_komponen_komputer')) {
+    function daftar_inv_komponen_komputer($kode_lab)
+    {
+        $query = "SELECT * FROM tabel_inventori_komponen where kd_lab ='{$kode_lab}'";
+        return query($query);
+    }
+}
+
+/**
  * Auto Number
  * function auto_number($prefix,$table,$key,$digit = 3)
  *

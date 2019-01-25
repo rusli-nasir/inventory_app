@@ -14,7 +14,7 @@ $memory = $_POST['memory'];
 $hdd = $_POST['hdd'];
 $processor = $_POST['processor'];
 $ups = $_POST['ups'];
-$komponen_lain = $_POST['komponen_lain'];
+$komponen_lain = null;//$_POST['komponen_lain'];
 $keterangan= $_POST['keterangan_komputer'];
 $status = $_POST['status'];
 

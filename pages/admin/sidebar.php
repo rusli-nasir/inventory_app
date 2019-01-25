@@ -49,8 +49,7 @@
                         $data_lab[] = $row;
                     }
                     ?>
-                    <a class="js-arrow" href="#">
-                        <i class="fas fa-archive"></i>Data Inventori</a>
+                    <a class="js-arrow" href="#"><i class="fas fa-archive"></i>Data Inventori</a>
                     <ul class=" navbar__sub-list js-sub-list">
                         <li>
                             <a href="#" class="js-arrow">Data Komputer</a>
@@ -89,7 +88,26 @@
                             </ul>
                         </li>
 
-
+                        <li>
+                            <a href="#" class="js-arrow">Komponen Komputer Baru</a>
+                            <ul class="list-unstyled navbar__submenu-list js-sub-list">
+                                <?php foreach ($data_lab as $data) :  ?>
+                                    <li>
+                                        <a href="tambah-komponen-komputer.php?kd_lab=<?php echo $data['kd_lab'] ?>">Tambah Komponen <?php echo $data['nama_lab'] ?></a>
+                                    </li>
+                                <?php endforeach ?>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="js-arrow">Daftar Komponen Komputer Baru</a>
+                            <ul class="list-unstyled navbar__submenu-list js-sub-list">
+                                <?php foreach ($data_lab as $data) :  ?>
+                                    <li>
+                                        <a href="data-komponen-komputer.php?kd_lab=<?php echo $data['kd_lab'] ?>"><?php echo $data['nama_lab'] ?></a>
+                                    </li>
+                                <?php endforeach ?>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
 

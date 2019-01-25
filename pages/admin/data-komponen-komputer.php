@@ -1,6 +1,6 @@
 <?php
     include "../../config/koneksi.php";
-    include '../../functions/query.php';
+    include "../../functions/query.php";
     include "validasi.php";
     $kd_lab = $_GET['kd_lab'];
 
@@ -42,41 +42,35 @@
                             <div class="col-lg-12">
 
                                 <div class="card">
+
                                     <div class="card-header">
                                         <?php
 //                                        $query = "SELECT * from tabel_laboratorium where kd_lab ='$kd_lab'";
-////                                        $hasil = mysqli_query($db, $query);
+//                                        $hasil = mysqli_query($db, $query);
                                         $hasil = daftar_lab($kd_lab);
                                         $data_lab = array();
                                         while ($row = mysqli_fetch_assoc($hasil)) {
                                         $data_lab[] = $row;
                                         }
                                         ?>
-                                        <?php foreach ($data_lab as $data) :  ?>
-                                        <strong>Daftar Komputer <?php echo $data['nama_lab']; ?></strong>
-                                        <?php  endforeach ?>
+                                         <?php foreach ($data_lab as $data) :  ?>
+                                        <strong>Daftar Komponen Komputer Baru <?php echo $data['nama_lab']; ?></strong>
+                                    <?php  endforeach ?>
                                     </div>
+
 
                                     <div class="card-body card-block">
                                         <div class="table-responsive m-b-40">
-                                    <table id="example" class="table table-striped table-bordered">
+                                     <table id="example" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
                                                 <th width="10">No</th>
-                                                <th>Kode Komputer</th>
-                                                <th>Nama Laboratorium</th>
-                                                <th>Nama User</th>
-                                                <th>Nama Komputer</th>
+                                                <th>Kode Komponen</th>
+                                                <th>Kode Laboratorium</th>
+                                                <th>ID User</th>
+                                                <th>Nama Komponen</th>
                                                 <th>Tahun</th>
-                                                <th>OS Komputer</th>
-                                                <th>Monitor</th>
-                                                <th>Keyboard</th>
-                                                <th>Mouse</th>
-                                                <th>HDD</th>
-                                                <th>Memory</th>
-                                                <th>Processor</th>
-                                                <th>UPS</th>
-<!--                                                <th>Komponen Lain</th>-->
+                                                <th>Kondisi </th>
                                                 <th>Keterangan</th>
                                                 <th>Status</th>
                                                 <th>Aksi</th>
@@ -84,8 +78,9 @@
                                         </thead>
                                          <?php
                                             $no=0;
-//                                            $query = "SELECT * FROM tabel_inventori_komputer where kd_lab ='$kd_lab'";
-                                            $hasil = daftar_inv_komputer($kd_lab);
+//                                            $query = "SELECT * FROM tabel_inventori_non_komputer where kd_lab ='$kd_lab'";
+//                                            $hasil = mysqli_query($db, $query);
+                                            $hasil = daftar_inv_komponen_komputer($kd_lab);
                                             $data_inv = array();
                                             while ($row = mysqli_fetch_assoc($hasil)) {
                                             $data_inv[] = $row;
@@ -94,26 +89,18 @@
                                         <tbody>
                                             <?php foreach ($data_inv as $data) :  ?>
                                             <tr>
-                                                <td><?php $no++; echo $no ?></td>
-                                                <td><?php echo $data['kd_komputer']; ?></td>
+                                                <td><?php $no++; echo "$no" ?></td>
+                                                <td><?php echo $data['kd_komponen']; ?></td>
                                                 <td><?php echo $data['kd_lab']; ?></td>
                                                 <td><?php echo $data['id_user']; ?></td>
-                                                <td><?php echo $data['nama_komputer']; ?></td>
+                                                <td><?php echo $data['nama_komponen']; ?></td>
                                                 <td><?php echo $data['tahun']; ?></td>
-                                                <td><?php echo $data['os_komputer']; ?></td>
-                                                <td><?php echo $data['monitor']; ?></td>
-                                                <td><?php echo $data['keyboard']; ?></td>
-                                                <td><?php echo $data['mouse']; ?></td>
-                                                <td><?php echo $data['memory']; ?></td>
-                                                <td><?php echo $data['hdd']; ?></td>
-                                                <td><?php echo $data['processor']; ?></td>
-                                                <td><?php echo $data['ups']; ?></td>
-<!--                                                <td>--><?php //echo $data['komponen_lain']; ?><!--</td>-->
-                                                <td><?php echo $data['keterangan_komputer']; ?></td>
+                                                <td><?php echo $data['kondisi']; ?></td>
+                                                <td><?php echo $data['keterangan']; ?></td>
                                                 <td><?php echo $data['status']; ?></td>
                                                 <td>
                                                 <center>
-                                                <a href="ubah-komputer.php?kd_komputer=<?php echo $data['kd_komputer'] ?>" class="btn btn-primary waves-effect" >
+                                                <a href="ubah-komponen-komputer.php?kd_komponen=<?php echo $data['kd_komponen'] ?>" class="btn btn-primary waves-effect" >
                                                 <i class="fa fa-edit"></i>
                                                 </a>
                                                 </center>
@@ -123,7 +110,7 @@
                                         </tbody>
                                     </table>  
                                 </div>
-                                <a href="cetak-komputer.php?kd_lab=<?php echo $data['kd_lab'] ?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a>
+                                <a href="cetak-komponen-komputer.php?kd_lab=<?php echo $data['kd_lab'] ?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a>
                             </div>
                         </div>
                         <?php
@@ -136,9 +123,7 @@
     </div>
     </div>
 
-    <!-- Jquery JS-->
-     <!-- Jquery JS-->
- <?php
+<?php
  include"../partial/script.html";
  ?>
 
