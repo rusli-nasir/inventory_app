@@ -21,6 +21,7 @@ $char = "M";
 $kdKom = $char . sprintf("%02s", $noUrut);
 $cetakKode = $kdKom  ;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -120,7 +121,6 @@ $cetakKode = $kdKom  ;
                                                 </div>
                                                 <div class="col-12 col-md-4">
                                                     <input type="text" name="keterangan" class="form-control" required>
-
                                                 </div>
                                             </div>
 
@@ -131,6 +131,14 @@ $cetakKode = $kdKom  ;
                                                 <div class="col-12 col-md-4">
                                                    <select name="kd_komputer" id="kd_komputer" class="form-control-sm form-control"></select>
                                                 </div>
+
+                                                 <div class="col col-md-2">
+                                                     <label for="text-input" class=" form-control-label">Penyebab</label>
+                                                 </div>
+                                                 <div class="col-12 col-md-4">
+                                                     <input type="text" name="penyebab" class="form-control" required>
+                                                 </div>
+
                                                  <div class="col col-md-2">
                                                      <label for="text-input" class=" form-control-label">Status</label>
                                                  </div>
@@ -141,31 +149,23 @@ $cetakKode = $kdKom  ;
                                                      </select>
                                                  </div>
                                             </div>
+
+                                            <h3>Maintenance Perangkat</h3>
                                             <div class="row form-group">
-                                                <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Perangkat Rusak</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                    <?php
-                                                    $perangkat = array (
-                                                        'monitor' => 'Monitor',
-                                                        'keyboard' => 'Keyboard',
-                                                        'mouse' => 'Mouse',
-                                                        'memory' => 'Memory',
-                                                        'hdd' => 'HDD',
-                                                        'processor' => 'Processor',
-                                                        'ups' => 'UPS',
-                                                    );
-                                                    foreach ($perangkat as $key => $val){
-                                                        ?>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="checkbox" id="perangkat" name="perangkat[]" value="<?= $key?>">
-                                                            <label class="form-check-label" for="inlineCheckbox1"><?= $val?></label>
-                                                        </div>
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                </div>
+                                                <table id="perangkat_rusak" class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Cek</th>
+                                                            <th>Perangkat</th>
+                                                            <th>Status</th>
+                                                            <th>Keterangan</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+
                                             </div>
                                             <div class="button-submit">
                                                 <input type="submit" class="btn btn-primary btn-sm" value="SIMPAN"></input>
@@ -236,6 +236,50 @@ $cetakKode = $kdKom  ;
                    // jika dapat mengambil data,, tampilkan di combo box kota
                    else{
                        $("#kd_komputer").html(msg);
+                       $("#kd_komputer").trigger('change');
+                   }
+
+                   // hilangkan image load
+                   $("#imgLoad").hide();
+               }
+           });
+       });
+
+       // $("#perangkat_rusak").change('.cek_komponen',function() {
+       //     var parent_tr = $(this).parents('tr');
+       //     var self = this;
+       //     $(parent_tr).find('.prop-komponen').each(function () {
+       //         console.log('asasa');
+       //         if ($(this).prop('disabled')) {
+       //             $(this).prop('disabled',self.checked);
+       //         }
+       //     });
+       // });
+
+       $("#kd_komputer").on('change',function(){
+
+           // variabel dari nilai combo box provinsi
+           var kd_komputer = $("#kd_komputer").val();
+
+           // tampilkan image load
+           $("#imgLoad").show("");
+
+           // mengirim dan mengambil data
+           $.ajax({
+               type: "POST",
+               dataType: "html",
+               url: "cari_komponen.php",
+               data: "kd_komputer="+kd_komputer,
+               success: function(msg){
+
+                   // jika tidak ada data
+                   if(msg == ''){
+                       alert('Tidak ada Inventori');
+                   }
+
+                   // jika dapat mengambil data,, tampilkan di combo box kota
+                   else{
+                       $("#perangkat_rusak").find('tbody').html(msg);
                    }
 
                    // hilangkan image load

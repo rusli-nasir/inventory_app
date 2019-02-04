@@ -6,6 +6,10 @@
  * Time: 6:29 AM
  */
 
+//if(file_exists('../config/koneksi.php')){
+//    require_once '../config/koneksi.php';
+//}
+
 /**
  * query
  * function query($qry)
@@ -81,6 +85,58 @@ if (!function_exists('daftar_inv_komponen_komputer')) {
 }
 
 /**
+ * Get Komponen Komputer
+ * function get_componen_computer($id_komputer)
+ *
+ **/
+if (!function_exists('get_componen_computer')) {
+    function get_componen_computer($kd_komputer = null)
+    {
+        if($kd_komputer){
+            $query = "SELECT A.kd_komponen, A.nama_komponen, B.kd_komputer, B.`status`
+            FROM tabel_inventori_komponen AS A
+            LEFT OUTER JOIN (SELECT * FROM table_komponen_komputer WHERE kd_komputer = '{$kd_komputer}') AS B 
+            ON B.kd_komponen = A.kd_komponen
+            ";
+        }else{
+            $query = "SELECT A.kd_komponen, A.nama_komponen FROM tabel_inventori_komponen AS A";
+        }
+
+        return query($query);
+    }
+}
+
+/**
+ * Get Komponen Komputer Kondisi
+ * function get_componen_computer_kondisi($id_komputer)
+ *
+ **/
+if (!function_exists('get_componen_computer_kondisi')) {
+    function get_componen_computer_kondisi($kd_komputer, $kd_maintenance = null, $kondisi = 'baik')
+    {
+        if($kd_maintenance){
+            $query = "SELECT A.kd_komponen, A.nama_komponen, C.kd_komputer, B.`status`,B.keterangan 
+            FROM table_komponen_maintenance AS B
+            INNER JOIN tabel_maintenance AS C ON B.kd_maintenance = C.kd_maintenance
+            INNER JOIN tabel_inventori_komponen AS A ON B.kd_komponen = A.kd_komponen
+            WHERE C.kd_komputer = '{$kd_komputer}' AND B.`status` = '{$kondisi}'
+            ";
+        }else{
+            $query = "SELECT A.kd_komponen, A.nama_komponen, B.kd_komputer, B.`status`, '-' as keterangan
+            FROM table_komponen_komputer AS B
+            INNER JOIN tabel_inventori_komponen AS A ON B.kd_komponen = A.kd_komponen
+            WHERE B.kd_komputer = '{$kd_komputer}' AND B.`status` = '{$kondisi}'
+            ";
+        }
+
+
+        return query($query);
+    }
+}
+
+
+
+/**
  * Auto Number
  * function auto_number($prefix,$table,$key,$digit = 3)
  *
@@ -122,5 +178,103 @@ if (!function_exists('get_maintenance_komp_periode_count')) {
             return $data['counter'];
         }
         return 0;
+    }
+}
+
+/**
+ * Update Komponen
+ * function update_komponen_komputer($data)
+ * 
+ **/
+if (!function_exists('update_komponen_komputer')) {
+    /**
+     * @param array $data
+     */
+    function update_komponen_komputer($data){
+
+        /** @var mysqli $mysqli */
+        global $mysqli;
+        if($data){
+            $mysqli->begin_transaction();
+
+            $stmt = $mysqli->prepare("INSERT INTO table_komponen_komputer (kd_komponen,kd_komputer,`status`)
+            VALUES (?,?,?) ON DUPLICATE KEY UPDATE `status` = VALUES(`status`)
+        ");
+
+            $stmt->bind_param('sss',$kd_komponen,$kd_komputer,$status);
+            foreach ( $data as $item) {
+                extract($item,EXTR_OVERWRITE);
+
+                try{
+                    if(!$stmt->execute())
+                    {
+                        print_r($mysqli->error);
+                        // rollback if prep stat execution fails
+                        $mysqli->rollback();
+                        // exit or throw an exception
+                        exit();
+                    }
+                }catch (mysqli_sql_exception $exception){
+                    echo '<pre>';
+                    print_r($exception->getMessage());
+                    echo '<br>';
+                    print_r($exception->getTrace());
+                    echo '</pre>';
+                    $mysqli->rollback();
+                    exit();
+                }
+            }
+            $stmt->close();
+            $mysqli->commit();
+        }
+
+    }
+}
+
+/**
+ * Update maintenance komputer komponen
+ * function update_komponen_maintenance_komputer($data)
+ *
+ **/
+if (!function_exists('update_komponen_maintenance_komputer')) {
+    function update_komponen_maintenance_komputer($data){
+        /** @var mysqli $mysqli */
+        global $mysqli;
+        if($data){
+            $mysqli->begin_transaction();
+
+            $stmt = $mysqli->prepare("INSERT INTO table_komponen_maintenance (kd_komponen,kd_maintenance,`status`,keterangan)
+            VALUES (?,?,?,?) ON DUPLICATE KEY 
+            UPDATE 
+            `status` = VALUES(`status`),
+            `keterangan` = VALUES(`keterangan`)
+        ");
+
+            $stmt->bind_param('ssss',$kd_komponen,$kd_maintenance,$status, $keterangan);
+            foreach ( $data as $item) {
+                extract($item,EXTR_OVERWRITE);
+
+                try{
+                    if(!$stmt->execute())
+                    {
+                        print_r($mysqli->error);
+                        // rollback if prep stat execution fails
+                        $mysqli->rollback();
+                        // exit or throw an exception
+                        exit();
+                    }
+                }catch (mysqli_sql_exception $exception){
+                    echo '<pre>';
+                    print_r($exception->getMessage());
+                    echo '<br>';
+                    print_r($exception->getTrace());
+                    echo '</pre>';
+                    $mysqli->rollback();
+                    exit();
+                }
+            }
+            $stmt->close();
+            $mysqli->commit();
+        }
     }
 }

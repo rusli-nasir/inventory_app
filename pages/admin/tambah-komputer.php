@@ -73,19 +73,7 @@ include "../partial/head.html";
                                                 <input type="text" name="kd_komputer" class="form-control" value="<?php echo $cetakKode; ?>" readonly="readonly">
 
                                             </div>
-                                            <div class="col col-md-2">
-                                                <label for="text-input" class=" form-control-label">Mouse</label>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <select name="mouse" class="form-control-sm form-control" required>
-                                                    <option value="">Please select</option>
-                                                    <option value="baik">Baik</option>
-                                                    <option value="buruk">Buruk</option>
-                                                </select>
-                                            </div>
-                                        </div>
 
-                                        <div class="row form-group">
                                             <div class="col col-md-2">
                                                 <label for="text-input" class=" form-control-label">Kode Laboratorium</label>
                                             </div>
@@ -107,57 +95,21 @@ include "../partial/head.html";
                                                     <?php endforeach ?>
                                                 </select>
                                             </div>
-                                            <div class="col col-md-2">
-                                                <label for="text-input" class=" form-control-label">Memory</label>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <select name="memory" class="form-control-sm form-control" required>
-                                                    <option value="">Please select</option>
-                                                    <option value="baik">Baik</option>
-                                                    <option value="buruk">Buruk</option>
-                                                </select>
-                                            </div>
-                                        </div>
 
-                                        <div class="row form-group">
                                             <div class="col col-md-2">
                                                 <label for="text-input" class=" form-control-label">ID User</label>
                                             </div>
                                             <div class="col-12 col-md-4">
                                                 <input type="text" name="id_user" class="form-control" readonly="readonly" value="<?php echo $id ?>">
                                             </div>
-                                            <div class="col col-md-2">
-                                                <label for="text-input" class=" form-control-label">HDD</label>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <select name="hdd" class="form-control-sm form-control" required>
-                                                    <option value="">Please select</option>
-                                                    <option value="baik">Baik</option>
-                                                    <option value="buruk">Buruk</option>
-                                                </select>
-                                            </div>
-                                        </div>
 
-                                        <div class="row form-group">
                                             <div class="col col-md-2">
                                                 <label for="text-input" class=" form-control-label">Nama Komputer</label>
                                             </div>
                                             <div class="col-12 col-md-4">
                                                 <input type="text" name="nama_komputer" class="form-control" required>
                                             </div>
-                                            <div class="col col-md-2">
-                                                <label for="text-input" class=" form-control-label">Processor</label>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <select name="processor" class="form-control-sm form-control" required>
-                                                    <option value="">Please select</option>
-                                                    <option value="baik">Baik</option>
-                                                    <option value="buruk">Buruk</option>
-                                                </select>
-                                            </div>
-                                        </div>
 
-                                        <div class="row form-group">
                                             <div class="col col-md-2">
                                                 <label for="text-input" class=" form-control-label">Tahun</label>
                                             </div>
@@ -166,25 +118,14 @@ include "../partial/head.html";
 
                                             </div>
                                             <div class="col col-md-2">
-                                                <label for="text-input" class=" form-control-label">UPS</label>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <select name="ups" class="form-control-sm form-control" required>
-                                                    <option value="">Please select</option>
-                                                    <option value="baik">Baik</option>
-                                                    <option value="buruk">Buruk</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="row form-group">
-                                            <div class="col col-md-2">
                                                 <label for="text-input" class=" form-control-label">OS Komputer</label>
                                             </div>
                                             <div class="col-12 col-md-4">
                                                 <input type="text" name="os_komputer" class="form-control" required>
                                             </div>
+                                        </div>
 
+                                        <div class="row form-group">
                                             <div class="col col-md-2">
                                                 <label for="text-input" class=" form-control-label">Keterangan Komputer</label>
                                             </div>
@@ -192,26 +133,7 @@ include "../partial/head.html";
                                                 <input type="text" name="keterangan_komputer" class="form-control" required>
 
                                             </div>
-                                            <!--
-                                            <div class="col col-md-2">
-                                                <label for="text-input" class=" form-control-label">Komponen Lainnya</label>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <input type="text" name="komponen_lain" class="form-control" required>
-                                            </div>
-                                            -->
-                                        </div>
-                                        <div class="row form-group">
-                                            <div class="col col-md-2">
-                                                <label for="text-input" class=" form-control-label">Monitor</label>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <select name="monitor" class="form-control-sm form-control" required>
-                                                    <option value="">Please select</option>
-                                                    <option value="baik">Baik</option>
-                                                    <option value="buruk">Buruk</option>
-                                                </select>
-                                            </div>
+
                                             <div class="col col-md-2">
                                                 <label for="text-input" class=" form-control-label">Status</label>
                                             </div>
@@ -222,19 +144,36 @@ include "../partial/head.html";
                                                     <option value="Tidak Dapat Dipakai">Tidak Dapat Dipakai</option>
                                                 </select>
                                             </div>
-                                        </div>
-
-                                        <div class="row form-group">
+                                            <!--
                                             <div class="col col-md-2">
-                                                <label for="text-input" class=" form-control-label">Keyboard</label>
+                                                <label for="text-input" class=" form-control-label">Komponen Lainnya</label>
                                             </div>
                                             <div class="col-12 col-md-4">
-                                                <select name="keyboard" class="form-control-sm form-control" required>
-                                                    <option value="">Please select</option>
-                                                    <option value="baik">Baik</option>
-                                                    <option value="buruk">Buruk</option>
-                                                </select>
+                                                <input type="text" name="komponen_lain" class="form-control" required>
                                             </div>
+                                            -->
+                                        </div>
+
+                                        <h3>Komponen Tambahan</h3>
+                                        <div class="row form-group">
+                                            <?php
+                                            $daftarKOmponen = get_componen_computer();
+                                            foreach ($daftarKOmponen as $item){
+                                                ?>
+                                                <div class="col col-md-2">
+                                                    <label for="daftarKomponen" class=" form-control-label"><?= $item['nama_komponen']?></label>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <input name="daftarKomponen[kd_komponen][]" type="hidden" value="<?= $item['kd_komponen']?>"/>
+                                                    <select name="daftarKomponen[status][]" class="form-control-sm form-control">
+                                                        <option value="">Please select</option>
+                                                        <option value="baik">Baik</option>
+                                                        <option value="buruk">Buruk</option>
+                                                    </select>
+                                                </div>
+                                                <?php
+                                            }
+                                            ?>
                                         </div>
 
                                         <div class="button-submit">

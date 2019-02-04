@@ -78,7 +78,7 @@ include('proses_login.php');
                                 <input class="au-btn au-btn--block au-btn--green m-b-20"  name="submit" value="LOGIN" type="submit"></input>
                                   
                             </form>
-                            
+                            <p class="text-right"><a href="lost-password.php">Lupa password anda?</a></p>
                         </div>
                     </div>
                 </div>

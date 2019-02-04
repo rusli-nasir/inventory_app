@@ -69,13 +69,21 @@
                                                 <th>Nama Komputer</th>
                                                 <th>Tahun</th>
                                                 <th>OS Komputer</th>
-                                                <th>Monitor</th>
-                                                <th>Keyboard</th>
-                                                <th>Mouse</th>
-                                                <th>HDD</th>
-                                                <th>Memory</th>
-                                                <th>Processor</th>
-                                                <th>UPS</th>
+<!--                                                <th>Monitor</th>-->
+<!--                                                <th>Keyboard</th>-->
+<!--                                                <th>Mouse</th>-->
+<!--                                                <th>HDD</th>-->
+<!--                                                <th>Memory</th>-->
+<!--                                                <th>Processor</th>-->
+<!--                                                <th>UPS</th>-->
+                                                <?php
+                                                $daftarKOmponen = get_componen_computer();
+                                                foreach ($daftarKOmponen as $item){
+                                                    ?>
+                                                    <th><?= $item['nama_komponen']?:'-'; ?></th>
+                                                    <?php
+                                                }
+                                                ?>
 <!--                                                <th>Komponen Lain</th>-->
                                                 <th>Keterangan</th>
                                                 <th>Status</th>
@@ -101,6 +109,7 @@
                                                 <td><?php echo $data['nama_komputer']; ?></td>
                                                 <td><?php echo $data['tahun']; ?></td>
                                                 <td><?php echo $data['os_komputer']; ?></td>
+                                                <!--
                                                 <td><?php echo $data['monitor']; ?></td>
                                                 <td><?php echo $data['keyboard']; ?></td>
                                                 <td><?php echo $data['mouse']; ?></td>
@@ -108,7 +117,16 @@
                                                 <td><?php echo $data['hdd']; ?></td>
                                                 <td><?php echo $data['processor']; ?></td>
                                                 <td><?php echo $data['ups']; ?></td>
+                                                -->
 <!--                                                <td>--><?php //echo $data['komponen_lain']; ?><!--</td>-->
+                                                <?php
+                                                $daftarKOmponen = get_componen_computer($data['kd_komputer']);
+                                                foreach ($daftarKOmponen as $item){
+                                                    ?>
+                                                    <td><?= $item['status']?:'tidak tersedia'; ?></td>
+                                                    <?php
+                                                }
+                                                ?>
                                                 <td><?php echo $data['keterangan_komputer']; ?></td>
                                                 <td><?php echo $data['status']; ?></td>
                                                 <td>

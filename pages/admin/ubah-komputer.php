@@ -1,5 +1,8 @@
 <?php
+include('../../config/koneksi.php');
+include "../../functions/query.php";
 include "validasi.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +46,6 @@ include "validasi.php";
                                     <div class="card-body card-block">
                                         <form action="edit_komputer.php" method="post" enctype="multipart/form-data" class="form-horizontal">
                                         	<?php
-                                            include('../../config/koneksi.php');
                                             $kd_komputer = $_GET['kd_komputer'];
                                             $query = "SELECT * FROM tabel_inventori_komputer WHERE kd_komputer = '$kd_komputer'";
                                             $hasil = mysqli_query($db, $query);
@@ -59,188 +61,82 @@ include "validasi.php";
                                                     <input type="text" name="kd_komputer" class="form-control" value="<?php echo $data_kom[0]['kd_komputer'] ?>" readonly="readonly">
                                                     
                                                 </div>
-                                                <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Mouse</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                    <select name="mouse" class="form-control-sm form-control">
-                                                        <option value="<?php echo $data_kom[0]['mouse'] ?>"><?php echo $data_kom[0]['mouse'] ?></option>
-                                                        <option>----------------------</option>
-                                                        <option value="baik">Baik</option>
-                                                        <option value="buruk">Buruk</option>
-                                                    </select>
-                                                    
-                                                </div>
-                                            </div>
 
-                                            <div class="row form-group">
                                                 <div class="col col-md-2">
                                                     <label for="text-input" class=" form-control-label">Kode Laboratorium</label>
                                                 </div>
                                                 <div class="col-12 col-md-4">
-                                                     <?php
+                                                    <?php
                                                     include('../../config/koneksi.php');
                                                     $query = "SELECT * FROM tabel_laboratorium";
                                                     $hasil = mysqli_query($db, $query);
                                                     $data_lab = array();
                                                     while ($row = mysqli_fetch_assoc($hasil)) {
-                                                    $data_lab[] = $row;
-                                                     }
+                                                        $data_lab[] = $row;
+                                                    }
                                                     ?>
-                                                   <select name="kd_lab" class="form-control-sm form-control">
-                                                       <option value="<?php echo $data_kom[0]['kd_lab'] ?>" selected><?php echo $data_kom[0]['kd_lab'] ?></option>
-                                                      <option>----------------------</option>
-                                                      <?php foreach ($data_lab as $data) : ?>
-                                                      <option value="<?php echo $data['kd_lab'] ?>">
-                                                      <?php echo $data['kd_lab'] ?> | <?php echo $data['nama_lab'] ?> </option>
-                                                      <?php endforeach ?>
-                                                    </select>
-                                                    
-                                                </div>
-                                                <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Memory</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                   <select name="memory" class="form-control-sm form-control">
-                                                        <option value="<?php echo $data_kom[0]['memory'] ?>"><?php echo $data_kom[0]['memory'] ?></option>
+                                                    <select name="kd_lab" class="form-control-sm form-control">
+                                                        <option value="<?php echo $data_kom[0]['kd_lab'] ?>" selected><?php echo $data_kom[0]['kd_lab'] ?></option>
                                                         <option>----------------------</option>
-                                                        <option value="baik">Baik</option>
-                                                        <option value="buruk">Buruk</option>
+                                                        <?php foreach ($data_lab as $data) : ?>
+                                                            <option value="<?php echo $data['kd_lab'] ?>">
+                                                                <?php echo $data['kd_lab'] ?> | <?php echo $data['nama_lab'] ?> </option>
+                                                        <?php endforeach ?>
                                                     </select>
-                                                </div>
-                                            </div>
 
-                                            <div class="row form-group">
+                                                </div>
+
                                                 <div class="col col-md-2">
                                                     <label for="text-input" class=" form-control-label">ID User</label>
                                                 </div>
                                                 <div class="col-12 col-md-4">
-                                                     <?php
+                                                    <?php
                                                     include('../../config/koneksi.php');
                                                     $query = "SELECT * FROM tabel_admin";
                                                     $hasil = mysqli_query($db, $query);
                                                     $data_user = array();
                                                     while ($row = mysqli_fetch_assoc($hasil)) {
-                                                    $data_user[] = $row;
-                                                     }
+                                                        $data_user[] = $row;
+                                                    }
                                                     ?>
-                                                   <select name="id_user" class="form-control-sm form-control">
-                                                      <option value="<?php echo $data_kom[0]['id_user'] ?>" selected><?php echo $data_kom[0]['id_user'] ?></option>
-                                                      <option>----------------------</option>
-                                                      <?php foreach ($data_user as $data) : ?>
-                                                      <option value="<?php echo $data['id_user'] ?>">
-                                                      <?php echo $data['id_user'] ?> | <?php echo $data['nama'] ?> </option>
-                                                      <?php endforeach ?>
-                                                    </select>
-                                                    
-                                                </div>
-                                               <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">HDD</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                   <select name="hdd" class="form-control-sm form-control">
-                                                        <option value="<?php echo $data_kom[0]['hdd'] ?>"><?php echo $data_kom[0]['hdd'] ?></option>
+                                                    <select name="id_user" class="form-control-sm form-control">
+                                                        <option value="<?php echo $data_kom[0]['id_user'] ?>" selected><?php echo $data_kom[0]['id_user'] ?></option>
                                                         <option>----------------------</option>
-                                                        <option value="baik">Baik</option>
-                                                        <option value="buruk">Buruk</option>
+                                                        <?php foreach ($data_user as $data) : ?>
+                                                            <option value="<?php echo $data['id_user'] ?>">
+                                                                <?php echo $data['id_user'] ?> | <?php echo $data['nama'] ?> </option>
+                                                        <?php endforeach ?>
                                                     </select>
-                                                </div>
-                                            </div>
 
-                                             <div class="row form-group">
+                                                </div>
                                                 <div class="col col-md-2">
                                                     <label for="text-input" class=" form-control-label">Nama Komputer</label>
                                                 </div>
-                                               <div class="col-12 col-md-4">
-                                                   <input type="text" name="nama_komputer" class="form-control" value="<?php echo $data_kom[0]['nama_komputer'] ?>">
-                                                </div>
-                                                <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Processor</label>
-                                                </div>
                                                 <div class="col-12 col-md-4">
-                                                    <select name="processor" class="form-control-sm form-control">
-                                                        <option value="<?php echo $data_kom[0]['processor'] ?>"><?php echo $data_kom[0]['processor'] ?></option>
-                                                        <option>----------------------</option>
-                                                        <option value="baik">Baik</option>
-                                                        <option value="buruk">Buruk</option>
-                                                    </select>
-                                                    
+                                                    <input type="text" name="nama_komputer" class="form-control" value="<?php echo $data_kom[0]['nama_komputer'] ?>">
                                                 </div>
-                                            </div>
-
-                                             <div class="row form-group">
                                                 <div class="col col-md-2">
                                                     <label for="text-input" class=" form-control-label">Tahun</label>
                                                 </div>
                                                 <div class="col-12 col-md-4">
                                                     <input type="text" name="tahun" class="form-control" value="<?php echo $data_kom[0]['tahun'] ?>">
-                                                    
-                                                </div>
-                                                 <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">UPS</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                    <select name="ups" class="form-control-sm form-control">
-                                                        <option value="<?php echo $data_kom[0]['ups'] ?>"><?php echo $data_kom[0]['ups'] ?></option>
-                                                        <option>----------------------</option>
-                                                        <option value="baik">Baik</option>
-                                                        <option value="buruk">Buruk</option>
-                                                    </select>
-                                                </div>
-                                            </div>
 
-                                             <div class="row form-group">
-                                               <div class="col col-md-2">
+                                                </div>
+                                                <div class="col col-md-2">
                                                     <label for="text-input" class=" form-control-label">OS Komputer</label>
                                                 </div>
                                                 <div class="col-12 col-md-4">
                                                     <input type="text" name="os_komputer" class="form-control" value="<?php echo $data_kom[0]['os_komputer'] ?>">
-                                                    
-                                                </div>
-                                               <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Komponen Lainnya</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                    <input type="text" name="komponen_lain" class="form-control" value="<?php echo $data_kom[0]['komponen_lain'] ?>">
-                                                    
+
                                                 </div>
                                             </div>
-
-                                            
                                             <div class="row form-group">
-                                                <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Monitor</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                    <select name="monitor" class="form-control-sm form-control">
-                                                        <option value="<?php echo $data_kom[0]['monitor'] ?>"><?php echo $data_kom[0]['monitor'] ?></option>
-                                                        <option>----------------------</option>
-                                                        <option value="baik">Baik</option>
-                                                        <option value="buruk">Buruk</option>
-                                                    </select>
-                                                    
-                                                </div>
                                                 <div class="col col-md-2">
                                                     <label for="text-input" class=" form-control-label">Keterangan Komputer</label>
                                                 </div>
                                                 <div class="col-12 col-md-4">
                                                     <input type="text" name="keterangan_komputer" class="form-control" value="<?php echo $data_kom[0]['keterangan_komputer'] ?>">
-                                                    
-                                                </div>
-                                            </div>
 
-                                            <div class="row form-group">
-                                                <div class="col col-md-2">
-                                                    <label for="text-input" class=" form-control-label">Keyboard</label>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                    <select name="keyboard" class="form-control-sm form-control">
-                                                        <option value="<?php echo $data_kom[0]['keyboard'] ?>"><?php echo $data_kom[0]['keyboard'] ?></option>
-                                                        <option>----------------------</option>
-                                                        <option value="baik">Baik</option>
-                                                        <option value="buruk">Buruk</option>
-                                                    </select>
-                                                    
                                                 </div>
                                                 <div class="col col-md-2">
                                                     <label for="text-input" class=" form-control-label">Status</label>
@@ -255,6 +151,27 @@ include "validasi.php";
                                                 </div>
                                             </div>
 
+                                            <h3>Komponen Tambahan</h3>
+                                            <div class="row form-group">
+                                                <?php
+                                                $daftarKOmponen = get_componen_computer($data_kom[0]['kd_komputer']);
+                                                foreach ($daftarKOmponen as $item){
+                                                    ?>
+                                                    <div class="col col-md-2">
+                                                        <label for="daftarKomponen" class=" form-control-label"><?= $item['nama_komponen']?></label>
+                                                    </div>
+                                                    <div class="col-12 col-md-4">
+                                                        <input name="daftarKomponen[kd_komponen][]" type="hidden" value="<?= $item['kd_komponen']?>"/>
+                                                        <select name="daftarKomponen[status][]" class="form-control-sm form-control">
+                                                            <option value="">Please select</option>
+                                                            <option <?= $item['status'] === 'baik'? 'selected':null?> value="baik">Baik</option>
+                                                            <option <?= $item['status'] === 'buruk'? 'selected':null?> value="buruk">Buruk</option>
+                                                        </select>
+                                                    </div>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </div>
                                             <div class="button-submit">
                                                 <input type="submit" class="btn btn-primary btn-sm" value="SIMPAN"></input>
                                                 <input type="reset" class="btn btn-danger btn-sm" value="BATAL"></input>
