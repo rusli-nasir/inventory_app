@@ -67,11 +67,11 @@ if($hasil){
 //    if($items2){
 //        update_komponen_komputer($items2);
 //    }
-    echo "<script>window.alert('Maintenance Berhasil'); window.location.href='data-mt.php'</script>";
+    echo "<script>window.alert('Maintenance Berhasil'); window.location.href='data-inv-rusaktotal.php'</script>";
   }else{
     print_r($mysqli->error);
     die();
-   echo "<script>window.alert('Maintenance Gagal'); window.location.href='tambah-mt.php'</script>";
+   echo "<script>window.alert('Maintenance Gagal'); window.location.href='tambah-inv-rusaktotal.php'</script>";
   }
 
 ?>
