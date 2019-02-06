@@ -45,7 +45,7 @@ include "validasi.php";
 
                                     <div class="card-body card-block">
                                     <div class="table-responsive m-b-40">
-                                     <table id="example" class="table table-striped table-bordered">
+                                     <table id="example" class="table table-striped table-bordered table-sm">
                                         <thead>
                                             <tr>
                                                 <th width="10">No</th>
@@ -71,15 +71,18 @@ include "validasi.php";
                                             }
                                              ?>
                                         <tbody>
-                                            <?php foreach ($data_mt as $data) :  ?>
-                                            <tr>
+                                            <?php
+                                            foreach ($data_mt as $data) :
+                                                $color = $data['status'] !=='Dikerjakan'? 'table-danger':null;
+                                                ?>
+                                            <tr class="<?= $color?>">
                                                 <td><?php $no++; echo "$no" ?></td>
                                                 <td><?php echo $data['kd_maintenance']; ?></td>
                                                 <td><?php echo $data['kd_lab']; ?></td>
                                                 <td><?php echo $data['tanggal_lapor']; ?></td>
                                                 <td><?php echo $data['jadwal_maintenance']; ?></td>
                                                 <td><?php echo $data['keterangan']; ?></td>
-                                                <td><?php echo $data['maintenance_selanjutnya']; ?></td>
+                                                <td><?php echo $data['status'] ==='Dikerjakan'? $data['maintenance_selanjutnya']:null; ?></td>
                                                 <td><?php echo $data['status']; ?></td>
                                                 <td>
                                                 <center>

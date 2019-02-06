@@ -62,7 +62,7 @@ include "validasi.php";
                                             $no=0;
                                             include "../../config/koneksi.php";
                                             $query = "
-                                            SELECT * FROM tabel_maintenance  ";
+                                            SELECT * FROM tabel_maintenance where status = 'Dikerjakan' and kd_komputer is not null";
                                             $hasil = mysqli_query($db, $query);
                                             $data_mt = array();
                                             while ($row = mysqli_fetch_assoc($hasil)) {
@@ -125,7 +125,7 @@ include "validasi.php";
                                             $no=0;
                                             include "../../config/koneksi.php";
                                             $query = "
-                                            SELECT * FROM tabel_maintenance where status='Belum Dikerjakan'";
+                                            SELECT * FROM tabel_maintenance where status='Belum Dikerjakan' and kd_komputer is not null";
                                             $hasil = mysqli_query($db, $query);
                                             $data_mt = array();
                                             while ($row = mysqli_fetch_assoc($hasil)) {

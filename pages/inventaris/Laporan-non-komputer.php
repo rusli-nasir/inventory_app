@@ -96,7 +96,7 @@
                                         </tbody>
                                     <?php endforeach ?>
                                     </table> 
-                                    <a href="cetak-laporan-non-komputer.php?kd_lab=<?php echo $kd_lab ?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a> 
+                                    <a href="cetak-laporan-non-komputer.php?kd_lab=<?php echo $kd_lab ?>&periode=<?= $periode?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a>
                             </div>
                         </div>
                         <?php

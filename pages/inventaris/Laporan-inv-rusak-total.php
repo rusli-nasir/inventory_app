@@ -51,7 +51,7 @@
                                         }
                                         ?>
                                          <?php foreach ($data_lab as $data) :  ?>
-                                        <strong>Data Komputer <?php echo $data['nama_lab']; ?></strong>
+                                        <strong>Data Inventori Rusak Total <?php echo $data['nama_lab']; ?></strong>
                                         <?php  endforeach ?>
                                     </div>
 
@@ -90,21 +90,21 @@
                                         <table id="example" class="table table-striped table-bordered">
                                             <thead>
                                             <tr>
-                                                <th>Kode Maintenance</th>
+                                                <th>Kode Rusak Total</th>
                                                 <th>Kode Lab</th>
-                                                <th>Tanggal Lapor</th>
-                                                <th>Jadwal MT</th>
-                                                <th>Keterangan</th>
+                                                <th>Nama Inventori</th>
                                                 <th>Penyebab</th>
-                                                <th>MT Selanjutnya</th>
+                                                <th>Tanggal Lapor</th>
                                                 <th>Status</th>
+                                                <th>Tanggal Ganti</th>
+                                                <th>Status Inventori</th>
                                             </tr>
                                             </thead>
                                             <?php
                                             $no=0;
                                             include "../../config/koneksi.php";
                                             $kd_lab = $data['kd_lab'];
-                                            $query = "SELECT * FROM tabel_maintenance where kd_lab = '$kd_lab' AND DATE_FORMAT(tanggal_lapor,'%Y-%m') = '{$periode}' AND kd_komputer is not null";
+                                            $query = "SELECT * FROM tabel_inventory_rusak_total where kd_lab = '$kd_lab' AND DATE_FORMAT(tanggal_lapor,'%Y-%m') = '{$periode}'";
                                             $hasil = mysqli_query($db, $query);
                                             $data_mt = array();
                                             while ($row = mysqli_fetch_assoc($hasil)) {
@@ -114,14 +114,14 @@
                                             <tbody>
                                             <?php foreach ($data_mt as $data) :  ?>
                                                 <tr>
-                                                    <td><?php echo $data['kd_maintenance']; ?></td>
+                                                    <td><?php echo $data['kd_rusak_total']; ?></td>
                                                     <td><?php echo $data['kd_lab']; ?></td>
-                                                    <td><?php echo $data['tanggal_lapor']; ?></td>
-                                                    <td><?php echo $data['jadwal_maintenance']; ?></td>
+                                                    <td><?php echo $data['kd_inventori']?:$data['kd_komputer']; ?></td>
                                                     <td><?php echo $data['penyebab']; ?></td>
-                                                    <td><?php echo $data['keterangan']; ?></td>
-                                                    <td><?php echo $data['maintenance_selanjutnya']; ?></td>
+                                                    <td><?php echo $data['tanggal_lapor']; ?></td>
                                                     <td><?php echo $data['status']; ?></td>
+                                                    <td><?php echo $data['tanggal_ganti']; ?></td>
+                                                    <td><?php echo $data['status_inventoy']; ?></td>
                                                 </tr>
                                             <?php endforeach ?>
                                             </tbody>
@@ -129,7 +129,7 @@
                                     </div>
 
 
-                                   <a href="cetak-laporan-maintenance.php?kd_lab=<?php echo $data['kd_lab'] ?>&periode=<?= $periode?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a>
+                                   <a href="cetak-laporan-inv-rusak-total.php?kd_lab=<?php echo $data['kd_lab'] ?>&periode=<?= $periode?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a>
                             </div>
                         </div>
                         <?php

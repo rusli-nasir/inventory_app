@@ -1,4 +1,6 @@
 <?php
+include_once "../../config/koneksi.php";
+include_once "../../functions/query.php";
 include "validasi.php";
 ?>
 <!DOCTYPE html>
@@ -40,7 +42,7 @@ include "validasi.php";
                                 <div class="card">
 
                                     <div class="card-header">
-                                        <strong>Daftar Maintenance</strong>
+                                        <strong>Daftar Inventory Rusak Total</strong>
                                     </div>
 
                                     <div class="card-body card-block">
@@ -49,48 +51,45 @@ include "validasi.php";
                                         <thead>
                                             <tr>
                                                 <th width="10">No</th>
-                                                <th>ID Maintenance</th>
+                                                <th>Kode Rusak Total</th>
                                                 <th>Nama Lab</th>
+                                                <th>Jenis Inventory</th>
+                                                <th>Nama Inventory</th>
+                                                <th>Penyebab</th>
                                                 <th>Tanggal Lapor</th>
-                                                <th>Jadwal MT</th>
-                                                <th>Keterangan</th>
-                                                <th>MT Selanjutnya</th>
                                                 <th>Status</th>
+                                                <th>Tanggal Ganti</th>
+                                                <th>Status Inventory</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                          <?php
                                             $no=0;
-                                            include "../../config/koneksi.php";
-                                            $query = "
-                                            SELECT * FROM tabel_maintenance where kd_komputer iS NOT NULL group by kd_maintenance";
-                                            $hasil = mysqli_query($db, $query);
+                                            $hasil = daftar_inv_rusak_total();
                                             $data_mt = array();
                                             while ($row = mysqli_fetch_assoc($hasil)) {
                                             $data_mt[] = $row;
                                             }
+//                                            echo '<pre>';
+//                                            print_r($data_mt);
+//                                            echo '</pre>';
                                              ?>
                                         <tbody>
-                                            <?php foreach ($data_mt as $data) :
-                                                $color = $data['status'] !=='Dikerjakan'? 'table-danger':null;
-                                                ?>
-                                            <tr class="<?= $color?>">
+                                            <?php foreach ($data_mt as $data) :  ?>
+                                            <tr>
                                                 <td><?php $no++; echo "$no" ?></td>
-                                                <td><?php echo $data['kd_maintenance']; ?></td>
-                                                <?php 
-                                                $kd_lab = $data['kd_lab'];
-                                                $query=mysqli_query($db,"SELECT * from tabel_laboratorium where kd_lab= '$kd_lab'");
-                                                $row = mysqli_fetch_assoc($query);
-                                                ?>
-                                                <td><?php echo $row['nama_lab']; ?></td>
+                                                <td><?php echo $data['kd_rusak_total']; ?></td>
+                                                <td><?php echo $data['nama_lab']; ?></td>
+                                                <td><?php echo $data['nama_inventory']; ?></td>
+                                                <td><?php echo $data['jenis_inventory']; ?></td>
+                                                <td><?php echo $data['penyebab']; ?></td>
                                                 <td><?php echo $data['tanggal_lapor']; ?></td>
-                                                <td><?php echo $data['jadwal_maintenance']; ?></td>
-                                                <td><?php echo $data['keterangan']; ?></td>
-                                                <td><?php echo $data['status'] ==='Dikerjakan'? $data['maintenance_selanjutnya']:null; ?></td>
                                                 <td><?php echo $data['status']; ?></td>
+                                                <td><?php echo $data['tanggal_ganti']; ?></td>
+                                                <td><?php echo $data['status_inventoy']; ?></td>
                                                 <td>
                                                 <center>
-                                                <a href="ubah-maintenance.php?kd_maintenance=<?php echo $data['kd_maintenance'] ?>" class="btn btn-primary waves-effect" >
+                                                <a href="ubah-inv_rusak_total.php?kd_rusak_total=<?php echo $data['kd_rusak_total'] ?>" class="btn btn-primary waves-effect" >
                                                 <i class="fa fa-edit"></i>
                                                 </a>
                                                 </center>

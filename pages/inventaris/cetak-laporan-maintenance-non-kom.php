@@ -61,7 +61,7 @@ class PDF extends FPDF
 
 // ambil dari database
 $query = "SELECT * from tabel_maintenance 
-  where kd_lab='$kd_lab' AND DATE_FORMAT(tanggal_lapor,'%Y-%m') = '{$periode}' and kd_komputer is not null";
+  where kd_lab='$kd_lab' AND DATE_FORMAT(tanggal_lapor,'%Y-%m') = '{$periode}' and kd_inventori is not null";
 $hasil = mysqli_query($db, $query);
 $data_mt = array();
 while ($row = mysqli_fetch_assoc($hasil)) {
@@ -80,7 +80,7 @@ $row   = mysqli_fetch_assoc($hasil);
 
 
 $pdf->Ln(5);
-$pdf->Cell(310,8,'LAPORAN MAINTENANCE KOMPUTER '.$row['nama_lab'],0,1,'C');
+$pdf->Cell(310,8,'LAPORAN MAINTENANCE NON KOMPUTER '.$row['nama_lab'],0,1,'C');
 $pdf->Cell(310,8,'SMP NEGERI 5 MENGWI',0,1,'C');
 $pdf->Cell(310,8,'PERIODE ' . $periodeLabel,0,1,'C');
 $pdf->Ln(5);

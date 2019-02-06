@@ -15,9 +15,17 @@
     
                         <li>
                             <a class="js-arrow" href="data-mt.php">
-                            <i class="fas fa-gears"></i>Data Maintenance</a> 
-                        </li>   
+                            <i class="fas fa-gears"></i>Daftar Maintenance Komputer</a>
+                        </li>
 
+                        <li>
+                            <a class="js-arrow" href="data-mt-nonkomputer.php">
+                                <i class="fas fa-gears"></i>Daftar Maintenance Non Komputer</a>
+                        </li>
+                        <li>
+                            <a class="js-arrow" href="data-inv-rusaktotal.php">
+                                <i class="fas fa-gears"></i>Daftar Inventori Rusak Total</a>
+                        </li>
                         <li>
                             <?php
                                 include "../../config/koneksi.php";
@@ -29,7 +37,7 @@
                                             }
                                             ?>
                             <a class="js-arrow" href="#">
-                                <i class="fas fa-chart-bar"></i>Laporan Laboratorium</a>
+                                <i class="fas fa-chart-bar"></i>Laporan</a>
                                     <ul class="navbar__sub-list js-sub-list">
                                        
                                         <li>
@@ -52,7 +60,7 @@
                                          
                             
                                          <li>
-                                            <a href="#" class="js-arrow"></i>Laporan Maintenance</a>
+                                            <a href="#" class="js-arrow"></i>Laporan Maintenance Komputer</a>
                                             <ul class="list-unstyled navbar__submenu-list js-sub-list"> 
                                                 <?php foreach ($data_lab as $data) :  ?>
                                                 <li>
@@ -60,6 +68,27 @@
                                                 </li>
                                                 <?php endforeach ?>
                                              </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="js-arrow"></i>Laporan Maintenance Non Komputer</a>
+                                            <ul class="list-unstyled navbar__submenu-list js-sub-list">
+                                                <?php foreach ($data_lab as $data) :  ?>
+                                                    <li>
+                                                        <a href="Laporan-maintenance-non-kom.php?kd_lab=<?php echo $data['kd_lab'] ?>"><?php echo $data['nama_lab'] ?></a>
+                                                    </li>
+                                                <?php endforeach ?>
+                                            </ul>
+                                        </li>
+
+                                        <li>
+                                            <a href="#" class="js-arrow"></i>Laporan Inventori Rusak Total</a>
+                                            <ul class="list-unstyled navbar__submenu-list js-sub-list">
+                                                <?php foreach ($data_lab as $data) :  ?>
+                                                    <li>
+                                                        <a href="Laporan-inv-rusak-total.php?kd_lab=<?php echo $data['kd_lab'] ?>"><?php echo $data['nama_lab'] ?></a>
+                                                    </li>
+                                                <?php endforeach ?>
+                                            </ul>
                                         </li>
                             </ul>
                         </li>    

@@ -51,7 +51,7 @@
                                         }
                                         ?>
                                          <?php foreach ($data_lab as $data) :  ?>
-                                        <strong>Data Komputer <?php echo $data['nama_lab']; ?></strong>
+                                        <strong>Data Non Komputer <?php echo $data['nama_lab']; ?></strong>
                                         <?php  endforeach ?>
                                     </div>
 
@@ -86,48 +86,47 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="table-responsive">
-                                        <table id="example" class="table table-striped table-bordered">
-                                            <thead>
-                                            <tr>
-                                                <th>Kode Maintenance</th>
-                                                <th>Kode Lab</th>
-                                                <th>Tanggal Lapor</th>
-                                                <th>Jadwal MT</th>
-                                                <th>Keterangan</th>
-                                                <th>Penyebab</th>
-                                                <th>MT Selanjutnya</th>
-                                                <th>Status</th>
-                                            </tr>
-                                            </thead>
-                                            <?php
-                                            $no=0;
-                                            include "../../config/koneksi.php";
-                                            $kd_lab = $data['kd_lab'];
-                                            $query = "SELECT * FROM tabel_maintenance where kd_lab = '$kd_lab' AND DATE_FORMAT(tanggal_lapor,'%Y-%m') = '{$periode}' AND kd_komputer is not null";
-                                            $hasil = mysqli_query($db, $query);
-                                            $data_mt = array();
-                                            while ($row = mysqli_fetch_assoc($hasil)) {
-                                                $data_mt[] = $row;
-                                            }
-                                            ?>
-                                            <tbody>
-                                            <?php foreach ($data_mt as $data) :  ?>
+                                        <div class="table-responsive">
+                                            <table id="example" class="table table-striped table-bordered">
+                                                <thead>
                                                 <tr>
-                                                    <td><?php echo $data['kd_maintenance']; ?></td>
-                                                    <td><?php echo $data['kd_lab']; ?></td>
-                                                    <td><?php echo $data['tanggal_lapor']; ?></td>
-                                                    <td><?php echo $data['jadwal_maintenance']; ?></td>
-                                                    <td><?php echo $data['penyebab']; ?></td>
-                                                    <td><?php echo $data['keterangan']; ?></td>
-                                                    <td><?php echo $data['maintenance_selanjutnya']; ?></td>
-                                                    <td><?php echo $data['status']; ?></td>
+                                                    <th>ID Maintenance</th>
+                                                    <th>Kode Lab</th>
+                                                    <th>Tanggal Lapor</th>
+                                                    <th>Jadwal MT</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Penyebab</th>
+                                                    <th>MT Selanjutnya</th>
+                                                    <th>Status</th>
                                                 </tr>
-                                            <?php endforeach ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
+                                                </thead>
+                                                <?php
+                                                $no=0;
+                                                include "../../config/koneksi.php";
+                                                $kd_lab = $data['kd_lab'];
+                                                $query = "SELECT * FROM tabel_maintenance where kd_lab = '$kd_lab' AND DATE_FORMAT(tanggal_lapor,'%Y-%m') = '{$periode}' AND kd_inventori is not null";
+                                                $hasil = mysqli_query($db, $query);
+                                                $data_mt = array();
+                                                while ($row = mysqli_fetch_assoc($hasil)) {
+                                                    $data_mt[] = $row;
+                                                }
+                                                ?>
+                                                <tbody>
+                                                <?php foreach ($data_mt as $data) :  ?>
+                                                    <tr>
+                                                        <td><?php echo $data['kd_maintenance']; ?></td>
+                                                        <td><?php echo $data['kd_lab']; ?></td>
+                                                        <td><?php echo $data['tanggal_lapor']; ?></td>
+                                                        <td><?php echo $data['jadwal_maintenance']; ?></td>
+                                                        <td><?php echo $data['keterangan']; ?></td>
+                                                        <td><?php echo $data['penyebab']; ?></td>
+                                                        <td><?php echo $data['maintenance_selanjutnya']; ?></td>
+                                                        <td><?php echo $data['status']; ?></td>
+                                                    </tr>
+                                                <?php endforeach ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
 
                                    <a href="cetak-laporan-maintenance.php?kd_lab=<?php echo $data['kd_lab'] ?>&periode=<?= $periode?>" class="btn btn-primary" type="button" style="margin-top: 20px;"><i class="fa fa-print"></i>&nbsp Cetak Pdf</a>
                             </div>

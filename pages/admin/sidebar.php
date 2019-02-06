@@ -113,19 +113,29 @@
 
                 <li>
                     <a class="js-arrow" href="#">
-                        <i class="fas fa-gears"></i>Data Maintenance</a>
+                        <i class="fas fa-gears"></i>Data Maintenance
+                    </a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
                         <li>
-                            <a href="tambah-mt.php">Tambah Inventori Komputer</a>
+                            <a href="#" class="js-arrow">Inventori Komputer</a>
+                            <ul class="list-unstyled navbar__submenu-list js-sub-list">
+                                <li><a href="tambah-mt.php"><i class="fa fa-plus-circle"></i>Tambah</a></li>
+                                <li><a href="data-mt.php"><i class="fa fa-list"></i>Daftar</a></li>
+                            </ul>
                         </li>
                         <li>
-                            <a href="tambah-mt-nonkomputer.php">Tambah Inventori Non Komputer</a>
+                            <a href="#" class="js-arrow">Inventori Non Komputer</a>
+                            <ul class="list-unstyled navbar__submenu-list js-sub-list">
+                                <li><a href="tambah-mt-nonkomputer.php"><i class="fa fa-plus-circle"></i>Tambah</a></li>
+                                <li><a href="data-mt-nonkomputer.php"><i class="fa fa-list"></i>Daftar</a></li>
+                            </ul>
                         </li>
                         <li>
-                            <a href="data-mt.php">Daftar Maintenance Komputer</a>
-                        </li>
-                        <li>
-                            <a href="data-mt-nonkomputer.php">Daftar Maintenance Non Komputer</a>
+                            <a href="#" class="js-arrow">Inventori Rusak Total</a>
+                            <ul class="list-unstyled navbar__submenu-list js-sub-list">
+                                <li><a href="tambah-inv-rusaktotal.php"><i class="fa fa-plus-circle"></i>Tambah</a></li>
+                                <li><a href="data-inv-rusaktotal.php"><i class="fa fa-list"></i>Daftar</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </li>

@@ -113,7 +113,7 @@ $cetakKode = $kdKom  ;
                                                 </div>
                                                 <div class="col-12 col-md-4">
                                                     <input type="text" name="keterangan" class="form-control" required>
-                                                    
+
                                                 </div>
                                             </div>
 
@@ -126,6 +126,13 @@ $cetakKode = $kdKom  ;
                                                     
                                                     </select>
                                                 </div>
+                                                 <div class="col col-md-2">
+                                                     <label for="text-input" class=" form-control-label">Penyebab</label>
+                                                 </div>
+                                                 <div class="col-12 col-md-4">
+                                                     <input type="text" name="penyebab" class="form-control" required>
+
+                                                 </div>
                                                  <div class="col col-md-2">
                                                     <label for="text-input" class=" form-control-label">Status</label>
                                                 </div>

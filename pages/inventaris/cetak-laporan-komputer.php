@@ -45,13 +45,17 @@ class PDF extends FPDF
         $this->Ln(5);
 
 
-       $this->SetFont('Times','B',9.5);
+       $this->SetFont('Times','I',9.5);
 
         // header tabel
-       
+        $this->cell(188,8,'Jumlah inventori komputer: ',0,1,'L');
+        $this->cell(188,8,'Jumlah inventori komputer rusak: ',0,1,'L');
+        $this->cell(188,8,'Detail inventori komputer',0,1,'L');
+
+        $this->SetFont('Times','B',9.5);
         $this->cell(90,8,'Inventaris',1,0,'C');
-        $this->cell(50,8,'Baik',1,0,'C');
         $this->cell(50,8,'Rusak',1,1,'C');
+        $this->cell(50,8,'Penyebab',1,0,'C');
 
 
     }
@@ -62,7 +66,7 @@ class PDF extends FPDF
         $this->SetY(-60);
         $this->SetX(150);
         $this->Cell(15,8,'Sading,',0,0,'L');
-        $this->Cell(10,8,date('d-m-Y'),0,1,'L');   
+        $this->Cell(10,8,tanggal_indo(date('d-m-Y')),0,1,'L');
         $this->Cell(315,8,'Kepala Sekolah SMP 5 Negeri Mengwi',0,1,'C');
         $this->Ln(20);
         $this->SetFont('Arial','U',8);

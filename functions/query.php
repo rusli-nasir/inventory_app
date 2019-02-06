@@ -11,6 +11,38 @@
 //}
 
 /**
+ * Tanggal Indonesia
+ * function tanggal_indo($tanggal)
+ *
+ **/
+if (!function_exists('tanggal_indo')) {
+    function tanggal_indo($tanggal)
+    {
+        $bulan = array (
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $tanggal);
+
+        // variabel pecahkan 0 = tanggal
+        // variabel pecahkan 1 = bulan
+        // variabel pecahkan 2 = tahun
+
+        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+    }
+}
+
+/**
  * query
  * function query($qry)
  *
@@ -80,6 +112,39 @@ if (!function_exists('daftar_inv_komponen_komputer')) {
     function daftar_inv_komponen_komputer($kode_lab)
     {
         $query = "SELECT * FROM tabel_inventori_komponen where kd_lab ='{$kode_lab}'";
+        return query($query);
+    }
+}
+
+/**
+ * Daftar Inventory Rusak Total
+ * function daftar_inv_rusak_total($kode_lab = null)
+ *
+ **/
+if (!function_exists('daftar_inv_rusak_total')) {
+    function daftar_inv_rusak_total($kode_lab = null,$status_inventoy = null)
+    {
+        $query = "SELECT A.kd_rusak_total, A.jenis_inventory, A.kd_inventori, A.kd_komputer, A.kd_lab, A.id_user,
+            A.tanggal_lapor, A.tanggal_ganti, A.`status`, A.penyebab, A.status_inventoy,
+            CASE A.jenis_inventory
+                WHEN 'KOM' THEN B.nama_komputer
+                WHEN 'NONKOM' THEN C.nama_inventori
+                ELSE NULL 
+            END AS nama_inventory,
+            L.nama_lab
+            FROM
+            tabel_inventory_rusak_total AS A
+            LEFT JOIN tabel_inventori_komputer AS B ON A.kd_komputer = B.kd_komputer
+            LEFT JOIN tabel_inventori_non_komputer AS C ON A.kd_inventori = C.kd_inventori
+            LEFT JOIN tabel_laboratorium AS L ON A.kd_lab = L.kd_lab 
+            WHERE 1";
+        if($status_inventoy){
+            $query .= " AND A.status_inventoy = '{$status_inventoy}'";
+        }
+        if($kode_lab){
+            $query .= " AND A.kd_lab = '{$kode_lab}'";
+        }
+
         return query($query);
     }
 }
