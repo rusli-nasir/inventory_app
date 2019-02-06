@@ -9,6 +9,7 @@ $tanggal_lapor	= $_POST['tanggal_lapor'];
 $jadwal_maintenance	= $_POST['jadwal_maintenance'];
 $maintenance_selanjutnya= date('Y-m-d', strtotime('+14 days', strtotime($jadwal_maintenance)));
 $keterangan= $_POST['keterangan'];
+$penyebab= $_POST['penyebab'];
 $status = $_POST['status'];
 $perangkat = array();
 
@@ -21,13 +22,17 @@ $processor = in_array('processor',$perangkat)?1:0;
 $ups = in_array('ups',$perangkat)?1:0;
 
 
-$query = "INSERT INTO tabel_maintenance VALUES ('$kd_maintenance','$kd_inventori','','$kd_lab','$id_user','$tanggal_lapor','$jadwal_maintenance','$maintenance_selanjutnya','$keterangan','$status',
-{$monitor},{$keyboard},{$mouse},{$memory},{$hdd},{$processor},{$ups});";
+$query = "INSERT INTO tabel_maintenance VALUES 
+('$kd_maintenance','$kd_inventori','','$kd_lab','$id_user','$tanggal_lapor','$jadwal_maintenance','$maintenance_selanjutnya','$keterangan','$status',
+{$monitor},{$keyboard},{$mouse},{$memory},{$hdd},{$processor},{$ups},'{$penyebab}');";
 
 $hasil = mysqli_query($db, $query);
 if($hasil){ 
     echo "<script>window.alert('Maintenance Berhasil'); window.location.href='data-mt-nonkomputer.php'</script>";
   }else{
+    print_r(print_r($query));
+    print_r(mysqli_error($db));
+    die();
    echo "<script>window.alert('Maintenance Gagal'); window.location.href='tambah-mt-nonkomputer.php'</script>";
   }
 
