@@ -10,7 +10,8 @@ $kom = $data['maxKode'];
 // mengambil angka atau bilangan dalam kode anggota terbesar,
 // dengan cara mengambil substring mulai dari karakter ke-1 diambil 6 karakter
 // setelah substring bilangan diambil lantas dicasting menjadi integer
-$noUrut = (int) substr($kom, 1, 3);
+$noUrut = (int) substr($kom, 3, 3);
+//print_r($noUrut);
 // bilangan yang diambil ini ditambah 1 untuk menentukan nomor urut berikutnya
 $noUrut++;
 // membentuk kode anggota baru
@@ -63,6 +64,7 @@ $cetakKode = $kdKom  ;
                                     </div>
                                     <div class="card-body card-block">
                                         <form action="insert_inv_rusaktotal.php" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                            <input id="id_user" type="hidden"  name="id_user" value="<?= $id?>">
                                             <div class="row form-group">
                                                 <div class="col col-md-2">
                                                     <label for="text-input" class=" form-control-label">Kode Rusak Total</label>
@@ -152,7 +154,7 @@ $cetakKode = $kdKom  ;
                                                      <label for="text-input" class=" form-control-label">Status Inventori</label>
                                                  </div>
                                                  <div class="col-12 col-md-4">
-                                                     <select name="kd_inventori" id="kd_inventori" class="form-control-sm form-control">
+                                                     <select name="status_inventoy" id="status_inventoy" class="form-control-sm form-control">
                                                          <option value="belum diganti">Belum diganti</option>
                                                          <option value="diganti">Diganti</option>
                                                      </select>
