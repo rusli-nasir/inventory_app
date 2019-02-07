@@ -54,8 +54,8 @@ class PDF extends FPDF
 
         $this->SetFont('Times','B',9.5);
         $this->cell(90,8,'Inventaris',1,0,'C');
-        $this->cell(50,8,'Rusak',1,0,'C');
-        $this->cell(50,8,'Penyebab',1,1,'C');
+        $this->cell(50,8,'Baik',1,0,'C');
+        $this->cell(50,8,'Rusak',1,1,'C');
 
 
     }
