@@ -10,6 +10,7 @@ include "../../functions/query.php";
 class PDF extends FPDF
 {
     public $periode;
+    public $kd_lab;
     // Page header
     function Header()
     {
@@ -37,27 +38,29 @@ class PDF extends FPDF
         for ($i=0; $i < 10; $i++) {
             $this->Cell(190,0,'',1,1,'C');
         }
-
+        $periodLabel = date('F Y',strtotime($this->periode . '-01'));
         $this->Ln(5);
         $this->Cell(188,8,'LAPORAN MAINTENANCE LABORATORIUM KOMPUTER',0,1,'C');
         $this->Cell(188,8,'SMP NEGERI 5 MENGWI',0,1,'C');
-        $this->Cell(188,8,'PERIODE ' . $this->periode,0,1,'C');
+        $this->Cell(188,8,'PERIODE ' . $periodLabel,0,1,'C');
         $this->Ln(5);
 
 
        $this->SetFont('Times','I',9.5);
 
         // header tabel
-        $this->cell(188,8,'Jumlah inventori komputer: ',0,1,'L');
-        $this->cell(188,8,'Jumlah inventori komputer rusak: ',0,1,'L');
+        $this->cell(188,8,'Jumlah inventori komputer: ' . getInventoryComuterCount(),0,1,'L');
+        $komponenMaintenance = getMaintenanceKomponen($this->kd_lab,null,$this->periode);
+        $countRusak = $komponenMaintenance? mysqli_num_rows($komponenMaintenance):0;
+        $this->cell(188,8,'Jumlah inventori komputer rusak: ' . $countRusak,0,1,'L');
         $this->cell(188,8,'Detail inventori komputer',0,1,'L');
 
         $this->SetFont('Times','B',9.5);
         $this->cell(90,8,'Inventaris',1,0,'C');
-        $this->cell(50,8,'Baik',1,0,'C');
-        $this->cell(50,8,'Rusak',1,1,'C');
+        $this->cell(50,8,'Rusak',1,0,'C');
+        $this->cell(50,8,'Penyebab',1,1,'C');
 
-
+        mysqli_free_result($komponenMaintenance);
     }
 
     // Page footer
@@ -81,7 +84,8 @@ class PDF extends FPDF
 
 
 $pdf = new PDF('P', 'mm', [210, 297]);
-$pdf->periode = $periodeLabel;
+$pdf->periode = $periode;
+$pdf->kd_lab = $kd_lab;
 $pdf->AliasNbPages();
 $pdf->AddPage();
 
@@ -91,53 +95,73 @@ $pdf->SetFont('Times','',12);
 // set penomoran
 $nomor = 1;
 
-    
-    $pdf->cell(90,7,'Monitor',1,0,'L');
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'monitor',0);
-    $pdf->cell(50,7,$jumlah,1,0,'C');
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'monitor',1);
-    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
+    $inv = getKomponen();
 
-    $pdf->cell(90,7,'Keyboard',1,0,'L');
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'keyboard',0);
-    $pdf->cell(50,7,$jumlah,1,0,'C');
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'keyboard',1);
-    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
+    while ($rowInv = mysqli_fetch_assoc($inv)){
 
-    $pdf->cell(90,7,'Mouse',1,0,'L');
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'mouse',0);
-    $pdf->cell(50,7,$jumlah,1,0,'C');
+        $komponenMaintenance = getMaintenanceKomponen($kd_lab,$rowInv['kd_komponen'],$periode);
+        $pdf->cell(190,7,$rowInv['nama_komponen'],1,1,'L');
+//        $pdf->cell(50,7,1,1,0,'C');
+//        $pdf->cell(50, 7, 1, 1, 1, 'C');
+        if($komponenMaintenance){
+            while ($rowMantain = mysqli_fetch_assoc($komponenMaintenance)){
+                $pdf->cell(90,7,tanggal_indo($rowMantain['tanggal_lapor']),1,0,'L');
+                $pdf->cell(50,7,$rowMantain['nama_komputer'],1,0,'C');
+                $pdf->cell(50, 7, $rowMantain['keterangan'], 1, 1, 'C');
+            }
+        }else{
+            $pdf->cell(90,7,'-',1,0,'L');
+            $pdf->cell(50,7,'-',1,0,'C');
+            $pdf->cell(50, 7, '-', 1, 1, 'C');
+        }
+    }
 
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'mouse',1);
-    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
-
-    $pdf->cell(90,7,'Memory',1,0,'L');
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'memory',0);
-    $pdf->cell(50,7,$jumlah,1,0,'C');
-
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'memory',1);
-    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
-
-    $pdf->cell(90,7,'HDD',1,0,'L');
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'hdd',0);
-    $pdf->cell(50,7,$jumlah,1,0,'C');
-
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'hdd',1);
-    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
-
-    $pdf->cell(90,7,'Processor',1,0,'L');
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'processor',0);
-    $pdf->cell(50,7,$jumlah,1,0,'C');
-
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'processor',1);
-    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
-
-    $pdf->cell(90,7,'UPS',1,0,'L');
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'ups',0);
-    $pdf->cell(50,7,$jumlah,1,0,'C');
-
-    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'ups',1);
-    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
+//    $pdf->cell(90,7,'Monitor',1,0,'L');
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'monitor',0);
+//    $pdf->cell(50,7,$jumlah,1,0,'C');
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'monitor',1);
+//    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
+//
+//    $pdf->cell(90,7,'Keyboard',1,0,'L');
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'keyboard',0);
+//    $pdf->cell(50,7,$jumlah,1,0,'C');
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'keyboard',1);
+//    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
+//
+//    $pdf->cell(90,7,'Mouse',1,0,'L');
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'mouse',0);
+//    $pdf->cell(50,7,$jumlah,1,0,'C');
+//
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'mouse',1);
+//    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
+//
+//    $pdf->cell(90,7,'Memory',1,0,'L');
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'memory',0);
+//    $pdf->cell(50,7,$jumlah,1,0,'C');
+//
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'memory',1);
+//    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
+//
+//    $pdf->cell(90,7,'HDD',1,0,'L');
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'hdd',0);
+//    $pdf->cell(50,7,$jumlah,1,0,'C');
+//
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'hdd',1);
+//    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
+//
+//    $pdf->cell(90,7,'Processor',1,0,'L');
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'processor',0);
+//    $pdf->cell(50,7,$jumlah,1,0,'C');
+//
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'processor',1);
+//    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
+//
+//    $pdf->cell(90,7,'UPS',1,0,'L');
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'ups',0);
+//    $pdf->cell(50,7,$jumlah,1,0,'C');
+//
+//    $jumlah = get_maintenance_komp_periode_count($kd_lab,$periode,'ups',1);
+//    $pdf->cell(50, 7, $jumlah, 1, 1, 'C');
 
     $pdf->Ln(5);
 

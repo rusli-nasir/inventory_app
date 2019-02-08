@@ -52,7 +52,14 @@ if (!function_exists('query')) {
     {
         /** @var mysqli $db */
         global $db;
-        return mysqli_query($db,$qry);
+        $query = mysqli_query($db,$qry);
+        $rror = mysqli_error($db);
+//        print_r($qry);
+        if($rror){
+            print_r($rror);
+            die();
+        }
+        return $query;
     }
 }
 
@@ -112,6 +119,54 @@ if (!function_exists('daftar_inv_komponen_komputer')) {
     function daftar_inv_komponen_komputer($kode_lab)
     {
         $query = "SELECT * FROM tabel_inventori_komponen where kd_lab ='{$kode_lab}'";
+        return query($query);
+    }
+}
+
+/**
+ * Get Inventoy
+ * function getInventory()
+ *
+ **/
+if (!function_exists('getInventory')) {
+    function getKomponen()
+    {
+        $query = "SELECT * FROM tabel_inventori_komponen";
+        return query($query);
+    }
+}
+
+/**
+ * getInventoryComuterCount
+ * function getInventoryComuterCount()
+ *
+ **/
+if (!function_exists('getInventoryComuterCount')) {
+    function getInventoryComuterCount()
+    {
+        $query = "SELECT * FROM tabel_inventori_komputer";
+        $res = query($query);
+        return $res? mysqli_num_rows($res):0;
+    }
+}
+
+/**
+ * Get MaintenanceKomponen
+ * function getMaintenanceKomponen($id_lab, $id_komponen)
+ *
+ **/
+if (!function_exists('getMaintenanceKomponen')) {
+    function getMaintenanceKomponen($id_lab, $id_komponen, $periode, $status = 'rusak')
+    {
+        $id_komponen = $id_komponen? "AND A.kd_komponen = '{$id_komponen}'":null;
+        $query = "SELECT A.kd_komponen, A.`status`, B.kd_komputer, B.kd_lab, C.nama_komputer, A.keterangan,B.tanggal_lapor
+            FROM
+            table_komponen_maintenance AS A
+            INNER JOIN tabel_maintenance AS B ON A.kd_maintenance = B.kd_maintenance
+            INNER JOIN tabel_inventori_komputer AS C ON B.kd_komputer = C.kd_komputer
+            where A.`status` = '{$status}' and B.kd_lab = '{$id_lab}' AND DATE_FORMAT(B.tanggal_lapor,'%Y-%m') = '$periode'
+            {$id_komponen}
+            ORDER BY B.tanggal_lapor DESC";
         return query($query);
     }
 }
